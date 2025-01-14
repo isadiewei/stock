@@ -1,2 +1,4 @@
-# stock
-an application for management of inventory
+# Stock
+
+An inventory management system built with React and Firebase
+
