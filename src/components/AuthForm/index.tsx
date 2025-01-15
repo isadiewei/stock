@@ -78,7 +78,6 @@ export const AuthForm = () => {
   return (
     <form
       onSubmit={(event) => handleSubmit(event)}
-      className="bg-white p-6 rounded-lg shadow-xl"
     >
       <h1 className="text-center">{signUp ? "Sign Up" : "Sign In"}</h1>
       {signUp && (

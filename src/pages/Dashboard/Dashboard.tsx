@@ -43,6 +43,7 @@ export const Dashboard = () => {
   return (
     <>
       <Navigation pageName="Dashboard" />
+      <span className="text-lg font-bold">{user?.displayName}</span>
       <div className="dataframe-container">
         <DataFrame rows={rows} />
       </div>
@@ -51,7 +52,6 @@ export const Dashboard = () => {
           <div className="bg-white p-6 shadow-md mb-5 mt-5 transition duration-500 hover:shadow-xl rounded">
             <h2>
               Welcome:{" "}
-              <span className="text-lg font-bold">{user?.displayName}</span>
             </h2>
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
             <h3>You are logged IN!!🔥🔥🔥🔥🔥</h3>
