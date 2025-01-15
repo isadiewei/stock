@@ -7,6 +7,8 @@ import { DataFrameInput } from './DataFrame.model';
 import { BaseSyntheticEvent } from 'react';
 import moment from 'moment';
 import { ButtonGroup } from '@mui/material';
+import { getAuth } from 'firebase/auth';
+import { isAdmin } from './DataFrame.service';
 
 export const DataFrame = ({ rows }: DataFrameInput) => {
   const columns = [
@@ -50,6 +52,8 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
   ];
 
   const paginationModel = { page: 0, pageSize: 5 };
+
+  isAdmin();
 
   return (
     <Paper sx={{ width: '100%' }}>

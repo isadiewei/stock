@@ -13,6 +13,7 @@ export const Dashboard = () => {
   const navigation = useNavigate();
   const db = getFirestore(FireBaseApp);
   const [rows, setRows] = useState<Catch[]>([]);
+  console.debug('user', user);
 
   useEffect(() => {
     if (user == null) {
