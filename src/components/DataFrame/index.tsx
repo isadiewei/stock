@@ -4,21 +4,26 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import moment from 'moment';
 import { ButtonGroup } from '@mui/material';
-import { getAuth } from 'firebase/auth';
-import { isAdmin } from './DataFrame.service';
+import { isAdmin } from '../../services/isAdmin';
+import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 export const DataFrame = ({ rows }: DataFrameInput) => {
+  const [admin, setAdmin] = useState(false);
+  isAdmin().then(admin => setAdmin(admin));
+  const navigate = useNavigate();
+
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'id', headerName: 'ID', width: 130 },
     {
       field: 'date',
       headerName: 'Date',
-      width: 130,
+      width: 200,
       valueFormatter: (params: any) =>
-        moment(params?.value).format("DD/MM/YYYY hh:mm A"),
+        dayjs(params?.value).format("DD/MM/YYYY hh:mm A"),
     },
     { field: 'location', headerName: 'Location', width: 130 },
     { field: 'weight', headerName: 'Weight', width: 100 },
@@ -26,6 +31,7 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
       field: "action",
       headerName: "Action",
       sortable: false,
+      width: 200,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
@@ -39,9 +45,17 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
           console.debug(row)
         };
 
+        const onEditClick = (e: BaseSyntheticEvent) => {
+          e.stopPropagation();
+          const row = params.row;
+          console.debug(row);
+          navigate(`/editcatch/${row.id}`)
+        }
+
         return (
           <div>
             <ButtonGroup>
+              {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></> }
               <Button onClick={e => onViewClick(e)}>View</Button>
               <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button>
             </ButtonGroup>
@@ -51,9 +65,8 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
     }
   ];
 
-  const paginationModel = { page: 0, pageSize: 5 };
 
-  isAdmin();
+  const paginationModel = { page: 0, pageSize: 5 };
 
   return (
     <Paper sx={{ width: '100%' }}>

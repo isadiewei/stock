@@ -1,36 +1,16 @@
-// import React from "react";
-import ReactDOM from "react-dom/client";
 import React from 'react';
-// import ReactDOM from 'react-dom';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import App from "./pages/App";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import { EditCatch } from "./pages/EditCatch";
-import { ErrorPage } from "./pages/ErrorPage";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/Dashboard",
-    element: <Dashboard />
-  },
-  {
-    path: "/EditCatch/:id",
-    element: <EditCatch />
-  },
-  {
-    path: "*",
-    element: <ErrorPage />
-  }
-]);
+import { ThemeProvider } from "@emotion/react";
+import { router } from "./router";
+import { theme } from "./theme";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 // import { createRoot } from 'react-dom/client';
