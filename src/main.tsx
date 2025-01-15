@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./pages/App";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import { EditCatch } from "./pages/EditCatch";
+import { ErrorPage } from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
   {
     path: "/Dashboard",
     element: <Dashboard />
+  },
+  {
+    path: "/EditCatch/:id",
+    element: <EditCatch />
+  },
+  {
+    path: "*",
+    element: <ErrorPage />
   }
 ]);
 

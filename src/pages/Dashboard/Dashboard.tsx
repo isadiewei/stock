@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { Navigation } from "../../components";
 import { DataFrame } from "../../components";
-import { collection, DocumentData, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 import FireBaseApp from "../../firebase";
-import { Catch } from "./Dashboard.model";
+import { Catch } from "../../models/Catch";
 
 export const Dashboard = () => {
   const auth = getAuth();
@@ -23,21 +23,9 @@ export const Dashboard = () => {
   useEffect(() => {
     populate();
   }, []);
-  // useEffect(() => {
-  //   const db = getDatabase();
-  //   const dataRef = ref(db, 'path/to/your/data'); 
 
-  //   const unsubscribe = onValue(dataRef, (snapshot) => {
-  //     const fetchedData = snapshot.val();
-  //     setData(fetchedData);
-  //   });
-
-  //   // Cleanup on unmount
-  //   return () => unsubscribe();
-  // }, []);
   const populate = async () => {
     const ref = await getDocs(collection(db, "catches"));
-    let _rows: Array<DocumentData> = [];
 
     if (ref.empty) {
       return;
@@ -53,10 +41,10 @@ export const Dashboard = () => {
 
   return (
     <>
+      <Navigation pageName="Dashboard" />
       <div className="dataframe-container">
         <DataFrame rows={rows} />
       </div>
-      <Navigation pageName="Dashboard" />
       <div className="container mx-auto m-5">
         <div className="grid grid-cols-1 gap-4">
           <div className="bg-white p-6 shadow-md mb-5 mt-5 transition duration-500 hover:shadow-xl rounded">
