@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import FireBaseApp from "../../firebase";
 import { FirebaseError } from "firebase/app";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import { StyledInput } from "../StyledInput";
 
 export const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -88,9 +89,19 @@ export const AuthForm = () => {
           >
             Username
           </label>
-          <input
+          {/* <input
             type="username"
             name="username"
+            value={displayName}
+            onChange={(event) => setDisplayName(event.target.value)}
+            className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
+            id="username"
+            required
+          /> */}
+          <StyledInput 
+            type="username" 
+            name="username"
+            label="Username"
             value={displayName}
             onChange={(event) => setDisplayName(event.target.value)}
             className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"

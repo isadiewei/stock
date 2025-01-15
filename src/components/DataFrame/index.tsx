@@ -4,17 +4,22 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import moment from 'moment';
+import { BaseSyntheticEvent, useState } from 'react';
 import { ButtonGroup } from '@mui/material';
 import { isAdmin } from '../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { InfoDialog } from '../InfoDialog';
 
 export const DataFrame = ({ rows }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
+  const [open, setOpen] = useState(false);
   isAdmin().then(admin => setAdmin(admin));
   const navigate = useNavigate();
+
+  const handleClose = (value: string) => {
+    setOpen(false);
+  };
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 130 },
@@ -43,6 +48,7 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
           e.stopPropagation();
           const row = params.row;
           console.debug(row)
+          setOpen(true);
         };
 
         const onEditClick = (e: BaseSyntheticEvent) => {
@@ -55,10 +61,18 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
         return (
           <div>
             <ButtonGroup>
-              {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></> }
               <Button onClick={e => onViewClick(e)}>View</Button>
+              {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
               <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button>
             </ButtonGroup>
+            <Button variant="outlined" onClick={() => setOpen(true)}>
+              Open simple dialog
+            </Button>
+            <InfoDialog
+              selectedValue='nothing'
+              open={open}
+              onClose={handleClose}
+              />
           </div>
         )
       }
