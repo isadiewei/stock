@@ -5,13 +5,14 @@ import { Navigation } from "../../components";
 import { DataFrame } from "../../components";
 import { collection, DocumentData, getDocs, getFirestore } from "firebase/firestore";
 import FireBaseApp from "../../firebase";
+import { Catch } from "./Dashboard.model";
 
 export const Dashboard = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const navigation = useNavigate();
   const db = getFirestore(FireBaseApp);
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<Catch[]>([]);
 
   useEffect(() => {
     if (user == null) {
@@ -22,7 +23,18 @@ export const Dashboard = () => {
   useEffect(() => {
     populate();
   }, []);
+  // useEffect(() => {
+  //   const db = getDatabase();
+  //   const dataRef = ref(db, 'path/to/your/data'); 
 
+  //   const unsubscribe = onValue(dataRef, (snapshot) => {
+  //     const fetchedData = snapshot.val();
+  //     setData(fetchedData);
+  //   });
+
+  //   // Cleanup on unmount
+  //   return () => unsubscribe();
+  // }, []);
   const populate = async () => {
     const ref = await getDocs(collection(db, "catches"));
     let _rows: Array<DocumentData> = [];
@@ -30,22 +42,20 @@ export const Dashboard = () => {
     if (ref.empty) {
       return;
     }
+    const data: Catch[] = ref.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    } as Catch));
 
-    ref.forEach(doc => {
-      const data = doc.data();
-
-      if (data) {
-        _rows.push(data);
-        console.debug(data);
-      }
-    });
-
-    console.debug(_rows);
+    console.debug(data);
+    setRows(data);
   }
 
   return (
     <>
-      <DataFrame rows={rows} />
+      <div className="dataframe-container">
+        <DataFrame rows={rows} />
+      </div>
       <Navigation pageName="Dashboard" />
       <div className="container mx-auto m-5">
         <div className="grid grid-cols-1 gap-4">
