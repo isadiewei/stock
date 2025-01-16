@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './pages/App';
-import { Dashboard } from './pages/Dashboard/Dashboard';
+import { Dashboard } from './pages/Dashboard/Dashboard.component';
 import { EditCatch } from './pages/EditCatch';
 import { ErrorPage } from './pages/ErrorPage';
-import { AddCatch } from './pages/AddCatch';
-import { AddFish } from './pages/AddFish';
+import { AddCatch } from './pages/AddCatch/AddCatch.component';
+import { AddFish } from './pages/AddFish/AddFish.component';
 
 export const router = createBrowserRouter([
   {
