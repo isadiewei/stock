@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { DeleteOutlined, PanoramaSharp } from '@mui/icons-material';
+import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
 import { BaseSyntheticEvent, useState } from 'react';
-import { ButtonGroup } from '@mui/material';
 import { isAdmin } from '../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -22,7 +21,7 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
     setOpen(false);
   };
 
-  const columns = [
+  const columns: Array<GridColDef> = [
     { field: 'id', headerName: 'ID', width: 130 },
     {
       field: 'date',
@@ -33,14 +32,15 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
     },
     { field: 'location', headerName: 'Location', width: 130 },
     { field: 'weight', headerName: 'Weight', width: 100 },
-    { 
-      field: 'trackingId', 
-      headerName: 'Tracking Id', 
+    {
+      field: 'trackingId',
+      headerName: 'Tracking Id',
       width: 100,
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Action',
+      headerAlign: 'center',
       sortable: false,
       width: 200,
       renderCell: (params: any) => {
@@ -66,16 +66,14 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
 
         return (
           <div>
-            <ButtonGroup>
-              <Button onClick={e => onViewClick(e)}>View</Button>
-              {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
-              <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button>
-            </ButtonGroup>
+            <Button onClick={e => onViewClick(e)}>View</Button>
+            {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
+            {admin ? <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button> : <></>}
             <InfoDialog
               selectedValue={selectedTrackingId}
               open={open}
               onClose={handleClose}
-              />
+            />
           </div>
         )
       }

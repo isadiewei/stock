@@ -2,7 +2,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   updateProfile,
 } from "firebase/auth";
 import { FormEvent, MouseEvent, useState } from "react";
@@ -11,6 +10,8 @@ import FireBaseApp from "../../firebase";
 import { FirebaseError } from "firebase/app";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import { StyledInput } from "../Styled";
+import './AuthForm.css';
+import { Button } from "@mui/material";
 
 export const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -68,13 +69,13 @@ export const AuthForm = () => {
     setSignUp(!signUp);
   };
 
-  const resetPassword = async () => {
-    try {
-      sendPasswordResetEmail(auth, email);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const resetPassword = async () => {
+  //   try {
+  //     sendPasswordResetEmail(auth, email);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <form
@@ -82,13 +83,8 @@ export const AuthForm = () => {
     >
       <h1 className="text-center">{signUp ? "Sign Up" : "Sign In"}</h1>
       {signUp && (
-        <>
-          <label
-            className="block text-gray-700 font-medium mb-2 text-left"
-            htmlFor="username"
-          >
-            Username
-          </label>
+        <div className="input-field">
+          {/* <label htmlFor="username">Username</label> */}
           {/* <input
             type="username"
             name="username"
@@ -105,22 +101,17 @@ export const AuthForm = () => {
             placeholder="Username"
             value={displayName}
             onChange={(event) => setDisplayName(event.target.value)}
-            className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
             id="username"
             required
           />
-        </>
+        </div>
       )}
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2 text-left"
-          htmlFor="email"
-        >
-          Email
-        </label>
-        <input
+      <div className="input-field">
+        {/* <label htmlFor="email">Email</label> */}
+        <StyledInput
           type="email"
           name="email"
+          label="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
@@ -128,16 +119,12 @@ export const AuthForm = () => {
           required
         />
       </div>
-      <div className="mb-6">
-        <label
-          className="block text-gray-700 font-medium mb-2 text-left"
-          htmlFor="password"
-        >
-          Password
-        </label>
-        <input
+      <div className="input-field">
+        {/* <label htmlFor="password">Password</label> */}
+        <StyledInput
           type="password"
           name="password"
+          label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
@@ -146,26 +133,20 @@ export const AuthForm = () => {
         />
       </div>
       <p className="text-red-400">{error && error}</p>
-      <button
-        type="submit"
-        className="bg-teal-500 transition duration-500 hover:bg-teal-600 text-white font-medium w-full p-3 rounded-lg"
-      >
+      <Button type="submit">
         {signUp ? "Register" : "Login"}
-      </button>
+      </Button>
       <div className="flex">
-        <div className="flex-start ">
-          <button
-            className="mr-4 transition duration-500 hover:underline"
-            onClick={(event) => toggleSignUp(event)}
-          >
+        <div className="flex-start">
+          <Button onClick={(event) => toggleSignUp(event)}>
             {signUp ? "Sign In" : "Sign Up"}
-          </button>
-          <button
+          </Button>
+          {/* <button
             className="transition duration-500 hover:underline"
             onClick={() => resetPassword()}
           >
             Forgot Password
-          </button>
+          </button> */}
         </div>
       </div>
     </form>

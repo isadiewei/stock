@@ -1,0 +1,22 @@
+.navigation-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagename-container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.button-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  padding-top: 15px;
+  justify-content: end;
+}
+
+.username-container {
+  padding: 5px 0 0 15px;
+}

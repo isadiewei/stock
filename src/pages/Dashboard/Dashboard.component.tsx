@@ -44,7 +44,6 @@ export const Dashboard = () => {
   return (
     <>
       <Navigation pageName="Dashboard" />
-      <span className="text-lg font-bold">{user?.displayName}</span>
       <div className="dataframe-container">
         <DataFrame rows={rows} />
       </div>
