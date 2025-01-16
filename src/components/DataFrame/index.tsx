@@ -14,10 +14,11 @@ import { InfoDialog } from '../InfoDialog';
 export const DataFrame = ({ rows }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
   const [open, setOpen] = useState(false);
+  const [selectedTrackingId, setSelectedTrackingId] = useState(0);
   isAdmin().then(admin => setAdmin(admin));
   const navigate = useNavigate();
 
-  const handleClose = (value: string) => {
+  const handleClose = (_selectedValue: number) => {
     setOpen(false);
   };
 
@@ -32,6 +33,7 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
     },
     { field: 'location', headerName: 'Location', width: 130 },
     { field: 'weight', headerName: 'Weight', width: 100 },
+    { field: 'trackingId', headerName: 'Tracking Id', width: 100 },
     {
       field: "action",
       headerName: "Action",
@@ -47,7 +49,7 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
         const onViewClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          console.debug(row)
+          setSelectedTrackingId(row.trackingId);
           setOpen(true);
         };
 
@@ -65,11 +67,8 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
               {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
               <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button>
             </ButtonGroup>
-            <Button variant="outlined" onClick={() => setOpen(true)}>
-              Open simple dialog
-            </Button>
             <InfoDialog
-              selectedValue='nothing'
+              selectedValue={selectedTrackingId}
               open={open}
               onClose={handleClose}
               />
