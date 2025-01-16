@@ -1,26 +1,47 @@
-import { Button } from '@mui/material'
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
-import { BaseSyntheticEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import FireBaseApp from '../../firebase';
-import { Catch } from '../../models/Catch';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'
+import FireBaseApp from '../../../firebase';
+import { Catch } from '../../../models/Catch';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
-import { StyledInput } from '../../components/Styled';
-import './AddCatch.css';
+import { StyledInput } from '../../../components/Styled';
+import './EditCatch.css';
+import { getFishIds } from '../../Fish/Fish.service';
+import { getCatch } from './EditCatch.service';
 
-export const AddCatch = () => {
+export const EditCatch = () => {
+  const params = useParams();
   const [location, setLocation] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [lure, setLure] = useState<string>('');
   const [trackingId, setTrackingId] = useState<string>('');
+  const [trackingIdList, setTrackingIdList] = useState<string[]>([]);
   const [datetime, setDatetime] = useState<Date>(new Date());
   const db = getFirestore(FireBaseApp);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getFishIds().then(ids => {
+      setTrackingIdList(ids);
+    })
+  }, trackingIdList)
+
+
+  useEffect(() => {
+    getCatch(params.id?.toString() || '').then(data => {
+      setLocation(data?.location);
+      setWeight(data?.weight);
+      setLure(data?.lure);
+      setTrackingId(data?.trackingId);
+    });
+  }, []);
+
   const dateSetter = (e: Dayjs) => {
+    console.debug(e);
     setDatetime(e.toDate());
   }
 
@@ -29,25 +50,19 @@ export const AddCatch = () => {
     console.debug(location, weight);
 
     const setData = async () => {
-      const docRef = collection(db, 'catches');
-
-      await addDoc(docRef, {
+      const docRef = doc(db, 'catches', params.id?.toString() || '');
+      await setDoc(docRef, {
+        id: params.id,
         location: location,
         weight: Number(weight),
-        trackingId: Number(trackingId),
+        trackingId: trackingId,
         lure: lure,
         date: datetime
       } as Catch);
-
-      setLocation('');
-      setWeight('');
-      setTrackingId('');
-      setLure('');
-      setDatetime(new Date());
     };
 
     setData().then(() => {
-      console.debug('data added');
+      console.debug('data updated');
     });
   }
 
@@ -60,6 +75,7 @@ export const AddCatch = () => {
     <>
       <div className='header-container'>
         <Button onClick={(e) => onReturnClick(e)}>Return</Button>
+        <h3>editing: {params.id}</h3>
       </div>
       <div>
         <p>Location</p>
@@ -74,8 +90,16 @@ export const AddCatch = () => {
         <StyledInput value={lure} onChange={e => setLure(e.target.value)}></StyledInput>
       </div>
       <div>
-        <p>Tracking Id</p>
-        <StyledInput value={trackingId} onChange={e => setTrackingId(e.target.value)}></StyledInput>
+        <FormControl fullWidth>
+          <InputLabel>Age</InputLabel>
+          <Select
+            value={trackingId}
+            label="Example"
+            onChange={e => setTrackingId(e.target.value as string)}
+          >
+            {trackingIdList.map(id => <MenuItem key={id} value={id}>{id}</MenuItem>)}
+          </Select>
+        </FormControl>
       </div>
       <div>
         <p>Catch Date</p>

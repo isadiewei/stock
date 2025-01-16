@@ -3,6 +3,6 @@ export interface Catch {
   id: string,
   location: string,
   lure: string,
-  trackingId: number,
+  trackingId: string,
   weight: number
 }

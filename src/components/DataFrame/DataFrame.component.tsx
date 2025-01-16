@@ -2,14 +2,14 @@
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { DeleteOutlined } from '@mui/icons-material';
+import { DeleteOutlined, PanoramaSharp } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
 import { BaseSyntheticEvent, useState } from 'react';
 import { ButtonGroup } from '@mui/material';
 import { isAdmin } from '../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { InfoDialog } from '../InfoDialog';
+import { InfoDialog } from '../InfoDialog/InfoDialog.component';
 
 export const DataFrame = ({ rows }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
@@ -33,7 +33,11 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
     },
     { field: 'location', headerName: 'Location', width: 130 },
     { field: 'weight', headerName: 'Weight', width: 100 },
-    { field: 'trackingId', headerName: 'Tracking Id', width: 100 },
+    { 
+      field: 'trackingId', 
+      headerName: 'Tracking Id', 
+      width: 100,
+    },
     {
       field: "action",
       headerName: "Action",
@@ -89,7 +93,6 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
         initialState={{ pagination: { paginationModel } }}
         getRowId={(row) => row.id}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
         sx={{ border: 0 }}
       />
     </Paper>

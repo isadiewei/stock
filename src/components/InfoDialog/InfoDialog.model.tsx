@@ -3,8 +3,3 @@ export interface SimpleDialogProps {
   selectedValue: number;
   onClose: (value: number) => void;
 }
-
-export interface Fish {
-  name: string;
-  type: string;
-}

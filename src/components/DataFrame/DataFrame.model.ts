@@ -1,3 +1,5 @@
+import { Catch } from "../../models/Catch";
+
 export interface DataFrameInput {
-  rows: Array<any>;
+  rows: Array<Catch>;
 }
