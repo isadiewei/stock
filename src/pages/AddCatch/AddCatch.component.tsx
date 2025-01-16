@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { BaseSyntheticEvent, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import FireBaseApp from '../../firebase';
 import { Catch } from '../../models/Catch';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -12,7 +12,6 @@ import { StyledInput } from '../../components/Styled/StyledInput.component';
 import './AddCatch.css';
 
 export const AddCatch = () => {
-  const params = useParams();
   const [location, setLocation] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [lure, setLure] = useState<string>('');
