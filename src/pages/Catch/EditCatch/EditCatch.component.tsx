@@ -1,8 +1,6 @@
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
-import FireBaseApp from '../../../firebase';
 import { Catch } from '../../../models/Catch';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
