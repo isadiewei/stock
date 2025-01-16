@@ -8,7 +8,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
-import { StyledInput } from '../../components/Styled/StyledInput.component';
+import { StyledInput } from '../../components/Styled';
 import './AddCatch.css';
 
 export const AddCatch = () => {

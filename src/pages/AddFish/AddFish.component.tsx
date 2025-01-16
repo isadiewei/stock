@@ -3,7 +3,7 @@ import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { BaseSyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import FireBaseApp from '../../firebase';
-import { StyledInput } from '../../components/Styled/StyledInput.component';
+import { StyledInput } from '../../components/Styled';
 import './AddFish.css';
 import { Fish } from '../../models/Fish';
 

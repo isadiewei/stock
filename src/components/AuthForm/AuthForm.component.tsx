@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import FireBaseApp from "../../firebase";
 import { FirebaseError } from "firebase/app";
 import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
-import { StyledInput } from "../Styled/StyledInput.component";
+import { StyledInput } from "../Styled";
 
 export const AuthForm = () => {
   const [email, setEmail] = useState("");
