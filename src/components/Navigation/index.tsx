@@ -1,11 +1,23 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { isAdmin } from "../../services/isAdmin";
+import { Button } from "@mui/material";
 
 export const Navigation = ({ pageName }: { pageName: string }) => {
   const [signedIn, setSignedIn] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth();
+
+  useEffect(() => {
+    checkAdmin();
+  }, [])
+
+  const checkAdmin = async () => {
+    const admin = await isAdmin();
+    setAdmin(admin);
+  }
 
   const clickHandler = () => {
     setSignedIn(!signedIn);
@@ -18,26 +30,34 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
       });
   };
 
+  const onAddCatchClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    navigate('/addcatch');
+  }
+
+  function onAddFishClick(e: MouseEvent): void {
+    e.stopPropagation();
+    navigate('/addfish');
+  }
+
   return (
-    <nav className="bg-teal-300 p-4">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 flex items-center justify-between">
-        <div className="flex items-center">
-          <Link to="/dashboard" className="text-white text-2xl font-bold">
-            Tada!
-          </Link>
-        </div>
-        <div className="ml-6 space-x-4 text-center text-white text-2xl font-bold">
+    <>
+      <div>
+        <div>
           {pageName}
         </div>
-        <div className="flex items-center">
-          <button
-            className="bg-teal-500 transition duration-100 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded"
-            onClick={() => clickHandler()}
-          >
+        <div>
+          <Button onClick={() => clickHandler()}>
             {signedIn ? "Sign out" : "Sign in"}
-          </button>
+          </Button>
+          {admin ?
+            <div>
+              <Button onClick={(e) => onAddCatchClick(e)}>Add Catch</Button>
+              <Button onClick={(e) => onAddFishClick(e)}>Add Fish</Button>
+            </div>
+            : <></>}
         </div>
       </div>
-    </nav>
+    </>
   );
 };

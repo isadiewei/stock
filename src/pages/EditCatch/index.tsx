@@ -1,7 +1,7 @@
-import { Button, createTheme, TextField, ThemeProvider } from '@mui/material'
+import { Button } from '@mui/material'
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { useNavigate, useNavigation, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import FireBaseApp from '../../firebase';
 import { Catch } from '../../models/Catch';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -13,7 +13,6 @@ import './EditCatch.css';
 
 export const EditCatch = () => {
   const params = useParams();
-  const [data, setData] = useState<Catch>({} as Catch);
   const [location, setLocation] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [lure, setLure] = useState<string>('');
@@ -29,7 +28,6 @@ export const EditCatch = () => {
       if (docSnap.exists()) {
         console.log('Document data:', docSnap.data());
         const snapData = docSnap.data();
-        setData(snapData as Catch);
         setLocation(snapData.location);
         setWeight(snapData.weight);
         setLure(snapData.lure);
@@ -53,7 +51,7 @@ export const EditCatch = () => {
 
     const setData = async () => {
       const docRef = doc(db, 'catches', params.id?.toString() || '');
-      const docSnap = await setDoc(docRef, {
+      await setDoc(docRef, {
         id: params.id,
         location: location,
         weight: Number(weight),
