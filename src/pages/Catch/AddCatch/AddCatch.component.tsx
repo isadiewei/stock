@@ -7,7 +7,7 @@ import { Catch } from '../../../models/Catch';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { StyledInput } from '../../../components/Styled';
 import { getFishIds } from '../../Fish/Fish.service';
 import './AddCatch.css';

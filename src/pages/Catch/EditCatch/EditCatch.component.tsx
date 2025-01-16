@@ -1,5 +1,5 @@
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import FireBaseApp from '../../../firebase';
