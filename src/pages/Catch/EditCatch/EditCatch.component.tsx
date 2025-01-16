@@ -11,9 +11,10 @@ import dayjs, { Dayjs } from 'dayjs';
 import { StyledInput } from '../../../components/Styled';
 import './EditCatch.css';
 import { getFishIds } from '../../Fish/Fish.service';
-import { getCatch } from './EditCatch.service';
+import { addCatch, getCatch, setCatch } from './EditCatch.service';
+import { EditCatchProps } from './EditCatch.model';
 
-export const EditCatch = () => {
+export const EditCatch = (props: EditCatchProps) => {
   const params = useParams();
   const [location, setLocation] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
@@ -21,23 +22,24 @@ export const EditCatch = () => {
   const [trackingId, setTrackingId] = useState<string>('');
   const [trackingIdList, setTrackingIdList] = useState<string[]>([]);
   const [datetime, setDatetime] = useState<Date>(new Date());
-  const db = getFirestore(FireBaseApp);
   const navigate = useNavigate();
 
   useEffect(() => {
     getFishIds().then(ids => {
       setTrackingIdList(ids);
     })
-  }, trackingIdList)
+  }, [])
 
 
   useEffect(() => {
-    getCatch(params.id?.toString() || '').then(data => {
-      setLocation(data?.location);
-      setWeight(data?.weight);
-      setLure(data?.lure);
-      setTrackingId(data?.trackingId);
-    });
+    if (!props.createNew) {
+      getCatch(params.id?.toString() || '').then(data => {
+        setLocation(data?.location);
+        setWeight(data?.weight);
+        setLure(data?.lure);
+        setTrackingId(data?.trackingId);
+      });
+    }
   }, []);
 
   const dateSetter = (e: Dayjs) => {
@@ -47,23 +49,45 @@ export const EditCatch = () => {
 
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
-    console.debug(location, weight);
 
-    const setData = async () => {
-      const docRef = doc(db, 'catches', params.id?.toString() || '');
-      await setDoc(docRef, {
+    if (props.createNew) {
+      addCatch({
+        location: location,
+        weight: Number(weight),
+        trackingId: trackingId,
+        lure: lure,
+        date: datetime
+      } as Catch).then(() => {
+        console.debug('catch added');
+      });
+    } else {
+      setCatch(params.id?.toString() || '', {
         id: params.id,
         location: location,
         weight: Number(weight),
         trackingId: trackingId,
         lure: lure,
         date: datetime
-      } as Catch);
-    };
+      } as Catch)
+        .then(() => {
+          console.debug('data updated');
+        })
+    }
+    // const setData = async () => {
+    //   const docRef = doc(db, 'catches', params.id?.toString() || '');
+    //   await setDoc(docRef, {
+    //     id: params.id,
+    //     location: location,
+    //     weight: Number(weight),
+    //     trackingId: trackingId,
+    //     lure: lure,
+    //     date: datetime
+    //   } as Catch);
+    // };
 
-    setData().then(() => {
-      console.debug('data updated');
-    });
+    // setData().then(() => {
+    //   console.debug('data updated');
+    // });
   }
 
   const onReturnClick = (e: BaseSyntheticEvent) => {

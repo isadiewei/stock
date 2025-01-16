@@ -1,1 +1,1 @@
-export { AddCatch } from './AddCatch.component';
+// export { AddCatch } from './AddCatch.component';
