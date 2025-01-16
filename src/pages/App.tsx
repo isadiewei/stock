@@ -1,10 +1,10 @@
 import './App.css'
 import { AuthForm } from "../components";
+import { useState } from 'react';
 
 const App = () => {
   return (
     <div>
-      <h1>Hello World!</h1>
       <AuthForm />
     </div>
   );

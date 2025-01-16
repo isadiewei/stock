@@ -31,6 +31,7 @@ export const Dashboard = () => {
     if (ref.empty) {
       return;
     }
+
     const data: Catch[] = ref.docs.map((doc) => ({
       id: doc.id,
       ...doc.data()
