@@ -9,15 +9,16 @@ import { isAdmin } from '../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { InfoDialog } from '../InfoDialog/InfoDialog.component';
+import { deleteCatch } from './DataFrame.service';
 
-export const DataFrame = ({ rows }: DataFrameInput) => {
+export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
   const [open, setOpen] = useState(false);
-  const [selectedTrackingId, setSelectedTrackingId] = useState(0);
+  const [selectedTrackingId, setSelectedTrackingId] = useState('');
   isAdmin().then(admin => setAdmin(admin));
   const navigate = useNavigate();
 
-  const handleClose = (_selectedValue: number) => {
+  const handleClose = (_selectedValue: string) => {
     setOpen(false);
   };
 
@@ -42,12 +43,18 @@ export const DataFrame = ({ rows }: DataFrameInput) => {
       headerName: 'Action',
       headerAlign: 'center',
       sortable: false,
+      filterable: false,
       width: 200,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          console.debug(row.id);
+          deleteCatch(row.id).then(result => {
+            console.debug(result);
+            rerender(true);
+          }).catch(error => {
+            console.error(error);
+          })
         };
 
         const onViewClick = (e: BaseSyntheticEvent) => {

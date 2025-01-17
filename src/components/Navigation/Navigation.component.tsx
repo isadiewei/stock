@@ -47,7 +47,7 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
           {admin ?
             <div>
               <Button onClick={_ => navigate('/addcatch')}>Add Catch</Button>
-              <Button onClick={_ => navigate('addfish')}>Add Fish</Button>
+              <Button onClick={_ => navigate('/addfish')}>Add Fish</Button>
             </div>
             : <></>}
           <div>
