@@ -1,46 +1,34 @@
 import { Button } from '@mui/material'
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import FireBaseApp from '../../../firebase';
 import { StyledInput } from '../../../components/Styled';
 import './AddFish.css';
-import { Fish } from '../../../models/Fish';
+import UploadButton from '../../../components/UploadButton/UploadButton.component';
+import { addFish, getProfileImages } from './AddFish.service';
 
 export const AddFish = () => {
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<string>('');
-
-  const db = getFirestore(FireBaseApp);
+  const [files, setFiles] = useState<Array<File>>();
+  const [profileImages, setProfileImages] = useState<Array<Blob>>();
   const navigate = useNavigate();
-
-  const setData = async () => {
-    const docRef = collection(db, 'fish');
-
-    await addDoc(docRef, {
-      name,
-      type
-    } as Fish);
-  };
 
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
 
-    setData().then(() => {
-      setName('');
-      setType('');
+    addFish({ name, type }, files).then((id) => {
+      // setName('');
+      // setType('');
+      getProfileImages(id).then((result) => {
+        setProfileImages(result);
+      })
     });
-  }
-
-  const onReturnClick = (e: BaseSyntheticEvent) => {
-    e.stopPropagation();
-    navigate('/dashboard');
   }
 
   return (
     <>
       <div className='header-container'>
-        <Button onClick={(e) => onReturnClick(e)}>Return</Button>
+        <Button onClick={_ => navigate('/dashboard')}>Return</Button>
       </div>
       <div>
         <p>Name</p>
@@ -49,6 +37,10 @@ export const AddFish = () => {
       <div>
         <p>Type</p>
         <StyledInput value={type} onChange={e => setType(e.target.value)}></StyledInput>
+      </div>
+      <div>
+        <p>Profile</p>
+        <UploadButton handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
       </div>
       <div className="submit-container">
         <Button onClick={e => onSubmitHandler(e)}>Submit</Button>

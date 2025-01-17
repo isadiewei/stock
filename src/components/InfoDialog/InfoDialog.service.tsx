@@ -1,9 +1,17 @@
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import FireBaseApp from "../../firebase";
+import { InfoDialogProfile } from "./InfoDialog.model";
+import { stringToFile } from "../../services/fileConverter";
+import { getImages } from "../../services/filesAccess";
 
-export const getData = async (selectedValue: number) => {
+export const getData = async (selectedValue: string): Promise<InfoDialogProfile> => {
   const db = getFirestore(FireBaseApp);
   const docRef = doc(db, 'fish', selectedValue.toString() || '');
   const data = (await getDoc(docRef)).data();
-  return data;
+  const result = await getImages(selectedValue);
+
+  return {
+    ...data,
+    images: result
+  } as InfoDialogProfile;
 }

@@ -11,6 +11,7 @@ import './EditCatch.css';
 import { getFishIds } from '../../Fish/Fish.service';
 import { addCatch, getCatch, setCatch } from './EditCatch.service';
 import { EditCatchProps } from './EditCatch.model';
+import { Fish } from '../../../models/Fish';
 
 export const EditCatch = (props: EditCatchProps) => {
   const params = useParams();
@@ -18,13 +19,13 @@ export const EditCatch = (props: EditCatchProps) => {
   const [weight, setWeight] = useState<string>('');
   const [lure, setLure] = useState<string>('');
   const [trackingId, setTrackingId] = useState<string>('');
-  const [trackingIdList, setTrackingIdList] = useState<string[]>([]);
+  const [trackingIdList, setTrackingIdList] = useState<Fish[]>([]);
   const [datetime, setDatetime] = useState<Date>(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
-    getFishIds().then(ids => {
-      setTrackingIdList(ids);
+    getFishIds().then(fishes => {
+      setTrackingIdList(fishes)
     })
   }, [])
 
@@ -119,7 +120,7 @@ export const EditCatch = (props: EditCatchProps) => {
             label="Example"
             onChange={e => setTrackingId(e.target.value as string)}
           >
-            {trackingIdList.map(id => <MenuItem key={id} value={id}>{id}</MenuItem>)}
+            {trackingIdList.map(fish => <MenuItem key={fish.id} value={fish.id}>{`${fish.name} ${fish.id}`}</MenuItem>)}
           </Select>
         </FormControl>
       </div>

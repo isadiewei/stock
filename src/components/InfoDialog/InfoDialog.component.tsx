@@ -8,6 +8,7 @@ export const InfoDialog = (props: SimpleDialogProps) => {
   const { onClose, selectedValue, open } = props;
   const [fish, setFish] = useState({} as Fish);
   const [isViewable, setIsViewable] = useState(false);
+  const [files, setFiles] = useState<Array<File>>([]);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -19,6 +20,8 @@ export const InfoDialog = (props: SimpleDialogProps) => {
     getData(selectedValue).then(result => {
       setFish(result as Fish);
       setIsViewable(true);
+      setFiles(result.images);
+      console.debug(files);
     })
   }, [selectedValue])
 
@@ -31,6 +34,9 @@ export const InfoDialog = (props: SimpleDialogProps) => {
           <p>{fish?.name}</p>
           <p>type</p>
           <p>{fish?.type}</p>
+          {files.map(file =>
+            <img src={URL.createObjectURL(file)} />
+          )}
         </div>
         : <></>}
     </Dialog>
