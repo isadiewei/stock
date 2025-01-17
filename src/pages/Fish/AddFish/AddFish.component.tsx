@@ -1,27 +1,23 @@
 import { Button } from '@mui/material'
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { StyledInput } from '../../../components/Styled';
 import './AddFish.css';
 import UploadButton from '../../../components/UploadButton/UploadButton.component';
-import { addFish, getProfileImages } from './AddFish.service';
+import { addFish } from './AddFish.service';
 
 export const AddFish = () => {
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [files, setFiles] = useState<Array<File>>();
-  const [profileImages, setProfileImages] = useState<Array<Blob>>();
   const navigate = useNavigate();
 
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
 
-    addFish({ name, type }, files).then((id) => {
-      // setName('');
-      // setType('');
-      getProfileImages(id).then((result) => {
-        setProfileImages(result);
-      })
+    addFish({ name, type }, files).then((_id) => {
+      setName('');
+      setType('');
     });
   }
 
@@ -40,6 +36,7 @@ export const AddFish = () => {
       </div>
       <div>
         <p>Profile</p>
+        <p>png images less than 1mb please</p>
         <UploadButton handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
       </div>
       <div className="submit-container">
