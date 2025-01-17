@@ -1,4 +1,4 @@
-import { Catch } from "../../models/Catch";
+import { Catch } from "../../../models/Catch";
 
 export interface DataFrameInput {
   rows: Array<Catch>;

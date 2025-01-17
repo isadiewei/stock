@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
 import { ThemeProvider } from "@emotion/react";
-import { router } from "./router";
 import { theme } from "./theme";
+import { router } from './router';
+import App from './pages/App';
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

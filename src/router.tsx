@@ -4,6 +4,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard.component';
 import { EditCatch } from './pages/Catch/EditCatch/EditCatch.component';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.component';
 import { AddFish } from './pages/Fish/AddFish/AddFish.component';
+import { RedirectRouteGuard } from './components/RouteGuard/RedirectRouteGuard.component';
 
 export const router = createBrowserRouter([
   {
@@ -16,15 +17,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/EditCatch/:id",
-    element: <EditCatch createNew={false} />
+    element: <RedirectRouteGuard element={<EditCatch createNew={false}></EditCatch>}></RedirectRouteGuard>
   },
   {
     path: "/AddCatch",
-    element: <EditCatch createNew={true} />
+    element: <RedirectRouteGuard element={<EditCatch createNew={true}></EditCatch>}></RedirectRouteGuard>
   },
   {
     path: "/AddFish",
-    element: <AddFish />
+    element: <RedirectRouteGuard element={<AddFish />}></RedirectRouteGuard>
   },
   {
     path: "*",

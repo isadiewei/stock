@@ -3,15 +3,17 @@ import FireBaseApp from "../../../firebase";
 import { Catch } from "../../../models/Catch";
 
 export const getCatch = async (id: string) => {
-  const db = getFirestore(FireBaseApp);
-  const docRef = doc(db, 'catches', id);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    console.log('Document data:', docSnap.data());
-    const snapData = docSnap.data();
-    return snapData;
-  } else {
-    console.debug('No such document!');
+  if (id.length > 0) {
+    const db = getFirestore(FireBaseApp);
+    const docRef = doc(db, 'catches', id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log('Document data:', docSnap.data());
+      const snapData = docSnap.data();
+      return snapData;
+    } else {
+      console.debug('No such document!');
+    }
   }
 };
 

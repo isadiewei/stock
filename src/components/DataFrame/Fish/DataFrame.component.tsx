@@ -1,14 +1,14 @@
-/* eslint-disable react/prop-types */
+
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
 import { BaseSyntheticEvent, useState } from 'react';
-import { isAdmin } from '../../services/isAdmin';
+import { isAdmin } from '../../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { InfoDialog } from '../InfoDialog/InfoDialog.component';
+import { InfoDialog } from '../../InfoDialog/InfoDialog.component';
 import { deleteCatch } from './DataFrame.service';
 
 export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
@@ -44,7 +44,7 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       headerAlign: 'center',
       sortable: false,
       filterable: false,
-      width: 200,
+      width: 250,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();

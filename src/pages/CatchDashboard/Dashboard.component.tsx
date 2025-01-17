@@ -47,17 +47,6 @@ export const Dashboard = () => {
       <div className="dataframe-container">
         <DataFrame rows={rows} rerender={rerender => rerender ? populate() : false}/>
       </div>
-      <div className="container mx-auto m-5">
-        <div className="grid grid-cols-1 gap-4">
-          <div className="bg-white p-6 shadow-md mb-5 mt-5 transition duration-500 hover:shadow-xl rounded">
-            <h2>
-              Welcome:{" "}
-            </h2>
-            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-            <h3>You are logged IN!!🔥🔥🔥🔥🔥</h3>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

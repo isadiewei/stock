@@ -26,6 +26,8 @@ export const EditCatch = (props: EditCatchProps) => {
   useEffect(() => {
     getFishIds().then(fishes => {
       setTrackingIdList(fishes)
+    }).catch(error => {
+      console.error(error);
     })
   }, [])
 
@@ -72,21 +74,6 @@ export const EditCatch = (props: EditCatchProps) => {
           console.debug('data updated');
         })
     }
-    // const setData = async () => {
-    //   const docRef = doc(db, 'catches', params.id?.toString() || '');
-    //   await setDoc(docRef, {
-    //     id: params.id,
-    //     location: location,
-    //     weight: Number(weight),
-    //     trackingId: trackingId,
-    //     lure: lure,
-    //     date: datetime
-    //   } as Catch);
-    // };
-
-    // setData().then(() => {
-    //   console.debug('data updated');
-    // });
   }
 
   const onReturnClick = (e: BaseSyntheticEvent) => {
