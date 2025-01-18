@@ -6,7 +6,6 @@
 .pagename-container {
   display: flex;
   flex-direction: row;
-  flex: 1;
 }
 
 .button-container {
