@@ -1,5 +1,5 @@
-import { collection, getDocs, getFirestore } from "firebase/firestore"
-import FireBaseApp from "../../firebase"
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import FireBaseApp from "../../firebase";
 import { Fish } from "../../models/Fish";
 
 export const getFishIds = async (): Promise<Array<Fish>> => {

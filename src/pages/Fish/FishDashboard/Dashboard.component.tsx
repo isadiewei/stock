@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Navigation } from "../../../components"
-import { DataFrame } from "./DataFrame/DataFrame.component"
+import { Navigation } from "../../../components";
 import { Fish } from "../../../models/Fish";
 import { populate } from "./Dashboard.service";
+import { DataFrame } from "./DataFrame/DataFrame.component";
 
 export const FishDashboard = () => {
   const [rows, setRows] = useState<Fish[]>([]);
