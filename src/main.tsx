@@ -13,8 +13,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </ThemeProvider>
   </React.StrictMode>
 );
-// import { createRoot } from 'react-dom/client';
-
-// const domNode = document.getElementById('root') as HTMLElement;
-// const root = createRoot(domNode);
-// root.render(<App />);
