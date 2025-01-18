@@ -30,7 +30,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/AddFish",
-    element: <RedirectRouteGuard element={<AddFish />}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<AddFish createNew={true}/>}></RedirectRouteGuard>
+  },
+  {
+    path: "/EditFish/:id",
+    element: <RedirectRouteGuard element={<AddFish createNew={false}/>}></RedirectRouteGuard>
   },
   {
     path: "*",

@@ -11,7 +11,7 @@ export const Dashboard = () => {
   const user = auth.currentUser;
   const navigation = useNavigate();
   const [rows, setRows] = useState<Catch[]>([]);
-  const [render, setRender] = useState();
+  const [render, setRender] = useState(false);
 
   useEffect(() => {
     if (user == null) {
@@ -33,7 +33,7 @@ export const Dashboard = () => {
     <>
       <Navigation pageName="Dashboard" />
       <div className="dataframe-container">
-        <DataFrame rows={rows} rerender={rerender => rerender ? setRender(render) : false}/>
+        <DataFrame rows={rows} rerender={_ => setRender(!render)}/>
       </div>
     </>
   );

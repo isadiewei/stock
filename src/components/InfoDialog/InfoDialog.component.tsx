@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { SimpleDialogProps } from "./InfoDialog.model";
 import { Fish } from '../../models/Fish';
 import { getData } from "./InfoDialog.service";
+import './InfoDialog.css';
+import { ProfileInfo } from "./ProfileInfo/ProfileInfo.component";
 
 export const InfoDialog = (props: SimpleDialogProps) => {
   const { onClose, selectedValue, open } = props;
@@ -30,13 +32,17 @@ export const InfoDialog = (props: SimpleDialogProps) => {
       <DialogTitle>Pulling TrackingId {selectedValue}</DialogTitle>
       {isViewable ?
         <div>
-          <p>name</p>
-          <p>{fish?.name}</p>
-          <p>type</p>
-          <p>{fish?.type}</p>
-          {files.map(file =>
-            <img src={URL.createObjectURL(file)} />
-          )}
+          <div>
+            <ProfileInfo label="name" content={fish?.name} ></ProfileInfo>
+          </div>
+          <div>
+            <ProfileInfo label="type" content={fish?.type}></ProfileInfo>
+          </div>
+          <div className="profile-container">
+            {files.map(file =>
+              <img src={URL.createObjectURL(file)} />
+            )}
+          </div>
         </div>
         : <></>}
     </Dialog>
