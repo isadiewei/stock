@@ -1,6 +1,6 @@
+import './LabelledInput.css'
 import { LabelledInputProps } from "./Styled.model"
 import { StyledInput } from "./StyledInput.component"
-import './LabelledInput.css'
 
 export const LabelledInput = (props: LabelledInputProps) => {
   return (
