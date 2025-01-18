@@ -3,7 +3,7 @@ import App from './pages/App';
 import { Dashboard } from './pages/Catch/CatchDashboard';
 import { EditCatch } from './pages/Catch/EditCatch/EditCatch.component';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.component';
-import { AddFish } from './pages/Fish/AddFish/AddFish.component';
+import { EditFish } from './pages/Fish/EditFish/EditFish.component';
 import { RedirectRouteGuard } from './components/RouteGuard/RedirectRouteGuard.component';
 import { FishDashboard } from './pages/Fish/FishDashboard/Dashboard.component';
 
@@ -30,11 +30,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/AddFish",
-    element: <RedirectRouteGuard element={<AddFish createNew={true}/>}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<EditFish createNew={true}/>}></RedirectRouteGuard>
   },
   {
     path: "/EditFish/:id",
-    element: <RedirectRouteGuard element={<AddFish createNew={false}/>}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<EditFish createNew={false}/>}></RedirectRouteGuard>
   },
   {
     path: "*",
