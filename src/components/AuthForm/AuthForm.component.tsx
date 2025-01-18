@@ -68,7 +68,7 @@ export const AuthForm = () => {
 
   return (
     <form onSubmit={(event) => handleSubmit(event)}>
-      <h1 className="text-center">{signUp ? "Sign Up" : "Sign In"}</h1>
+      <h3 className="text-center">{signUp ? "Sign Up" : "Sign In"}</h3>
       {signUp && (
         <div className="input-field">
           <StyledInput
