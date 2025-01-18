@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { FileUpload } from '@mui/icons-material';
 import { UploadButtonProps } from './UploadButton.model';
 
-export default function UploadButton(props: UploadButtonProps) {
+export const UploadButton = (props: UploadButtonProps) => {
   return (
     <Button
       variant="contained"

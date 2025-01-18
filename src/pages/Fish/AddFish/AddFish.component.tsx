@@ -3,7 +3,7 @@ import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { StyledInput } from '../../../components/Styled';
 import './AddFish.css';
-import UploadButton from '../../../components/UploadButton/UploadButton.component';
+import { UploadButton } from '../../../components';
 import { addFish, getFish, setFish } from './AddFish.service';
 import { AddFishProps } from './AddFish.model';
 import { Fish } from '../../../models/Fish';
