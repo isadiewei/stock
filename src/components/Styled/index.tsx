@@ -1,1 +1,1 @@
-export { StyledInput } from './StyledInput/StyledInput.component';
+export { StyledInput } from './StyledInput.component';

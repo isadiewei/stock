@@ -1,0 +1,9 @@
+.labelled-input {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.label {
+  min-width: 100px;
+}

@@ -5,3 +5,7 @@
 .header-container {
   display: flex;
 }
+
+.selector {
+  padding-top: 36px;
+}

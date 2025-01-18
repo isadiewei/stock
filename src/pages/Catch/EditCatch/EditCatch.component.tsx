@@ -6,12 +6,12 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
-import { StyledInput } from '../../../components/Styled';
 import './EditCatch.css';
 import { getFishIds } from '../../Fish/Fish.service';
 import { addCatch, getCatch, setCatch } from './EditCatch.service';
 import { EditCatchProps } from './EditCatch.model';
 import { Fish } from '../../../models/Fish';
+import { LabelledInput } from '../../../components/Styled/LabelledInput.component';
 
 export const EditCatch = (props: EditCatchProps) => {
   const params = useParams();
@@ -88,20 +88,29 @@ export const EditCatch = (props: EditCatchProps) => {
         <h3>editing: {params.id}</h3>
       </div>
       <div>
-        <p>Location</p>
-        <StyledInput value={location} onChange={e => setLocation(e.target.value)}></StyledInput>
+        <LabelledInput
+          label='Location'
+          value={location}
+          onChange={e => setLocation(e.target.value)}
+        ></LabelledInput>
       </div>
       <div>
-        <p>Weight</p>
-        <StyledInput value={weight} onChange={e => setWeight(e.target.value)}></StyledInput>
+        <LabelledInput
+          label='Weight'
+          value={weight}
+          onChange={e => setWeight(e.target.value)}
+        ></LabelledInput>
       </div>
       <div>
-        <p>Lure</p>
-        <StyledInput value={lure} onChange={e => setLure(e.target.value)}></StyledInput>
+        <LabelledInput
+          label='Lure'
+          value={lure}
+          onChange={e => setLure(e.target.value)}
+        ></LabelledInput>
       </div>
-      <div>
+      <div className="selector">
         <FormControl fullWidth>
-          <InputLabel>Age</InputLabel>
+          <InputLabel>Tracking Id</InputLabel>
           <Select
             value={trackingId}
             label="Example"

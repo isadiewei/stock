@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { isAdmin } from '../../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -15,12 +14,15 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedTrackingId, setSelectedTrackingId] = useState('');
-  isAdmin().then(admin => setAdmin(admin));
   const navigate = useNavigate();
 
   const handleClose = (_selectedValue: string) => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    isAdmin().then(admin => setAdmin(admin));
+  })
 
   const columns: Array<GridColDef> = [
     { field: 'id', headerName: 'ID', width: 130 },

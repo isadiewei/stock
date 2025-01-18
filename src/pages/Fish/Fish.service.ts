@@ -19,6 +19,5 @@ export const getFishIds = async (): Promise<Array<Fish>> => {
     }
   });
 
-  console.debug(data);
   return data;
 }

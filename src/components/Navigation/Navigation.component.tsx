@@ -10,6 +10,7 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
   const user = auth.currentUser;
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(true);
+  const [isCatchDashboard, setIsCatchDashboard] = useState(true);
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
@@ -44,6 +45,10 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
           </p>
         </div>
         <div className="button-container">
+          <div>
+            <Button onClick={_ => navigate('/dashboard')}>Catch</Button>
+            <Button onClick={_ => navigate('/fishes')}>Fish</Button>
+          </div>
           {admin ?
             <div>
               <Button onClick={_ => navigate('/addcatch')}>Add Catch</Button>
