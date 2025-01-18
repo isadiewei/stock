@@ -24,7 +24,6 @@ export const handleFileUpload = async (trackingId: string, fileList: Array<File>
   })
 }
 
-
 export const getImages = async (selectedValue: string): Promise<Blob[]> => {
   const db = getFirestore(FireBaseApp);
   const ref = collection(db, 'images');
