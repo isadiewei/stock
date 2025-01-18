@@ -1,18 +1,18 @@
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
-import { Catch } from '../../../models/Catch';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
-import './EditCatch.css';
-import { getFishIds } from '../../Fish/Fish.service';
-import { addCatch, getCatch, setCatch } from './EditCatch.service';
-import { EditCatchProps } from './EditCatch.model';
-import { Fish } from '../../../models/Fish';
-import { LabelledInput } from '../../../components/Styled/LabelledInput.component';
 import { KeyboardReturn } from '@mui/icons-material';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import dayjs, { Dayjs } from 'dayjs';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { LabelledInput } from '../../../components/Styled/LabelledInput.component';
+import { Catch } from '../../../models/Catch';
+import { Fish } from '../../../models/Fish';
+import { getFishIds } from '../../Fish/Fish.service';
+import './EditCatch.css';
+import { EditCatchProps } from './EditCatch.model';
+import { addCatch, getCatch, setCatch } from './EditCatch.service';
 
 export const EditCatch = ({ createNew }: EditCatchProps) => {
   const params = useParams();
