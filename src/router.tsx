@@ -22,19 +22,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/EditCatch/:id",
-    element: <RedirectRouteGuard element={<EditCatch createNew={false}></EditCatch>}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<EditCatch createNew={false} />}></RedirectRouteGuard>
   },
   {
     path: "/AddCatch",
-    element: <RedirectRouteGuard element={<EditCatch createNew={true}></EditCatch>}></RedirectRouteGuard>
-  },
-  {
-    path: "/AddFish",
-    element: <RedirectRouteGuard element={<EditFish createNew={true}/>}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<EditCatch createNew={true} />}></RedirectRouteGuard>
   },
   {
     path: "/EditFish/:id",
-    element: <RedirectRouteGuard element={<EditFish createNew={false}/>}></RedirectRouteGuard>
+    element: <RedirectRouteGuard element={<EditFish createNew={false} />}></RedirectRouteGuard>
+  },
+  {
+    path: "/AddFish",
+    element: <RedirectRouteGuard element={<EditFish createNew={true} />}></RedirectRouteGuard>
   },
   {
     path: "*",
