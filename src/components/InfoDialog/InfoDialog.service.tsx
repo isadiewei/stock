@@ -5,9 +5,9 @@ import { InfoDialogProfile } from "./InfoDialog.model";
 
 export const getData = async (selectedValue: string): Promise<InfoDialogProfile> => {
   try {
-    if (selectedValue.length > 0) {
+    if (selectedValue && selectedValue.length > 0) {
       const db = getFirestore(FireBaseApp);
-      const docRef = doc(db, 'fish', selectedValue.toString() || '');
+      const docRef = doc(db, 'fish', selectedValue.toString());
       const data = (await getDoc(docRef)).data();
       const result = await getImages(selectedValue);
 
@@ -17,7 +17,6 @@ export const getData = async (selectedValue: string): Promise<InfoDialogProfile>
       } as InfoDialogProfile;
     }
 
-    console.debug('empty selected value');
     return {} as InfoDialogProfile;
   } catch (error) {
     console.error(error);
