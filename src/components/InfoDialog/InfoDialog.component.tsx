@@ -6,8 +6,7 @@ import { SimpleDialogProps } from "./InfoDialog.model";
 import { getData } from "./InfoDialog.service";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo.component";
 
-export const InfoDialog = (props: SimpleDialogProps) => {
-  const { onClose, selectedValue, open } = props;
+export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) => {
   const [fish, setFish] = useState({} as Fish);
   const [isViewable, setIsViewable] = useState(false);
   const [files, setFiles] = useState<Array<File>>([]);
