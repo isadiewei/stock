@@ -1,0 +1,1 @@
+export { EditFish as AddFish } from './EditFish.component';
