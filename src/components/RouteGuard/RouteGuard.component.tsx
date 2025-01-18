@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
-import { RouteGuardProps } from "./RouteGuard.model";
 import { useNavigate } from "react-router-dom";
+import { RouteGuardProps } from "./RouteGuard.model";
 
 export const RouteGuard = (props: RouteGuardProps): ReactElement<any, any> => {
   const navigate = useNavigate();

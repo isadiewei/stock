@@ -1,6 +1,6 @@
 import { isAdmin } from "../../services/isAdmin";
 import { RouteGuard } from "./RouteGuard.component";
-import { RedirectRouteGuardProps } from "./RouteGuard.model"
+import { RedirectRouteGuardProps } from "./RouteGuard.model";
 
 export const RedirectRouteGuard = (props: RedirectRouteGuardProps) => {
   return (
