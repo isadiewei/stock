@@ -16,6 +16,10 @@
   justify-content: end;
 }
 
+.add-button-container {
+  padding: 0 10px;
+}
+
 .username-container {
   padding: 5px 0 0 15px;
 }

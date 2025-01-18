@@ -1,16 +1,16 @@
+import { Button, ButtonGroup } from "@mui/material";
+import { getAuth, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
 import { isAdmin } from "../../services/isAdmin";
-import { Button } from "@mui/material";
 import './Navigation.css';
 
 export const Navigation = ({ pageName }: { pageName: string }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const navigate = useNavigate();
-  const [signedIn, setSignedIn] = useState(true);
   const [admin, setAdmin] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
     checkAdmin();
@@ -45,13 +45,17 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
         </div>
         <div className="button-container">
           <div>
-            <Button onClick={_ => navigate('/dashboard')}>Catch</Button>
-            <Button onClick={_ => navigate('/fishes')}>Fish</Button>
+            <ButtonGroup>
+              <Button onClick={_ => navigate('/dashboard')}>Catch</Button>
+              <Button onClick={_ => navigate('/fishes')}>Fish</Button>
+            </ButtonGroup>
           </div>
           {admin ?
-            <div>
-              <Button onClick={_ => navigate('/addcatch')}>Add Catch</Button>
-              <Button onClick={_ => navigate('/addfish')}>Add Fish</Button>
+            <div className="add-button-container">
+              <ButtonGroup variant="contained">
+                <Button onClick={_ => navigate('/addcatch')}>Add Catch</Button>
+                <Button onClick={_ => navigate('/addfish')}>Add Fish</Button>
+              </ButtonGroup>
             </div>
             : <></>}
           <div>
