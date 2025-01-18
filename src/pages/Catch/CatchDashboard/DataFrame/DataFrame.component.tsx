@@ -1,20 +1,20 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
-import { DataFrameInput } from './DataFrame.model';
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { isAdmin } from '../../../../services/isAdmin';
-import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
-import { InfoDialog } from '../../../../components/InfoDialog/InfoDialog.component';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { InfoDialog } from '../../../../components';
+import { isAdmin } from '../../../../services/isAdmin';
+import { DataFrameInput } from './DataFrame.model';
 import { deleteCatch } from './DataFrame.service';
 
 export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
-  const [admin, setAdmin] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [selectedTrackingId, setSelectedTrackingId] = useState('');
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [admin, setAdmin] = useState(false);
+  const [selectedTrackingId, setSelectedTrackingId] = useState('');
 
   const handleClose = (_selectedValue: string) => {
     setOpen(false);
@@ -88,7 +88,6 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       }
     }
   ];
-
 
   const paginationModel = { page: 0, pageSize: 5 };
 
