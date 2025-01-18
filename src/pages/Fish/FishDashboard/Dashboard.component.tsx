@@ -22,7 +22,7 @@ export const FishDashboard = () => {
     <>
       <Navigation pageName="fishes"></Navigation>
       <p> Fish Dashboard </p>
-      <DataFrame rows={rows} rerender={e => setRender(!render)}></DataFrame>
+      <DataFrame rows={rows} rerender={_ => setRender(!render)}></DataFrame>
     </>
   )
 } 
