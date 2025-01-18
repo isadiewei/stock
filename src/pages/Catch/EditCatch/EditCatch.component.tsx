@@ -60,7 +60,10 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
         lure: lure,
         date: datetime
       } as Catch).then(() => {
-        console.debug('catch added');
+        setLocation('');
+        setWeight('');
+        setTrackingId('');
+        setLure('');
       });
     } else {
       setCatch(params.id?.toString() || '', {
