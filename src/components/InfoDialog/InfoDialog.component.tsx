@@ -18,12 +18,13 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
   useEffect(() => {
     setIsViewable(false);
 
-    getData(selectedValue).then(result => {
-      setFish(result as Fish);
-      setIsViewable(true);
-      setFiles(result.images);
-      console.debug(files);
-    })
+    if (selectedValue.length > 0) {
+      getData(selectedValue).then(result => {
+        setFish(result as Fish);
+        setIsViewable(true);
+        setFiles(result.images);
+      });
+    }
   }, [selectedValue])
 
   return (

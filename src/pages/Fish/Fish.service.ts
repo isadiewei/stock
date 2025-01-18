@@ -3,21 +3,26 @@ import FireBaseApp from "../../firebase"
 import { Fish } from "../../models/Fish";
 
 export const getFishIds = async (): Promise<Array<Fish>> => {
-  const db = getFirestore(FireBaseApp)
-  const colRef = await getDocs(collection(db, 'fish'));
+  try {
+    const db = getFirestore(FireBaseApp)
+    const colRef = await getDocs(collection(db, 'fish'));
 
-  if (colRef.empty) {
+    if (colRef.empty) {
+      return [];
+    }
+
+    const data = colRef.docs.map((doc) => {
+      const result = doc.data() as Fish;
+
+      return {
+        ...result,
+        id: doc.id,
+      }
+    });
+
+    return data;
+  } catch (error) {
+    console.error(error);
     return [];
   }
-
-  const data = colRef.docs.map((doc) => {
-    const result = doc.data() as Fish;
-
-    return {
-      ...result,
-      id: doc.id,
-    }
-  });
-
-  return data;
 }
