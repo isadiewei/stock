@@ -7,6 +7,7 @@ import UploadButton from '../../../components/UploadButton/UploadButton.componen
 import { addFish, getFish, setFish } from './AddFish.service';
 import { AddFishProps } from './AddFish.model';
 import { Fish } from '../../../models/Fish';
+import { KeyboardReturn } from '@mui/icons-material';
 
 export const AddFish = ({ createNew }: AddFishProps) => {
   const params = useParams();
@@ -46,7 +47,7 @@ export const AddFish = ({ createNew }: AddFishProps) => {
   return (
     <>
       <div className='header-container'>
-        <Button onClick={_ => navigate('/fishes')}>Return</Button>
+        <Button onClick={_ => navigate('/fishes')}><KeyboardReturn /></Button>
       </div>
       <div>
         <p>Name</p>

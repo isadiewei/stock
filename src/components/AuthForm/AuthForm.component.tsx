@@ -8,10 +8,11 @@ import { FormEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FireBaseApp from "../../firebase";
 import { FirebaseError } from "firebase/app";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import { StyledInput } from "../Styled";
 import './AuthForm.css';
 import { Button } from "@mui/material";
+import { setUser } from "./AuthForm.service";
+import { AppUser } from "./AuthForm.model";
 
 export const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -28,32 +29,28 @@ export const AuthForm = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         const user = auth.currentUser;
-        if (user) {
-          updateProfile(user, {
-            displayName,
-          })
-            .then(async function () {
-              var uid = user.uid;
-              const db = getFirestore(FireBaseApp)
-              const ref = collection(db, "users");
 
-              await setDoc(doc(ref, uid), {
-                name: displayName,
-                email: email,
-                password: password,
-                roles: ['user']
-              });
-            });
+        if (user) {
+          updateProfile(user, { displayName })
+            .then(async function () {
+              setUser({
+                displayName,
+                email,
+                password,
+                uid: user.uid
+              } as AppUser)
+            })
         }
 
         navigate("/dashboard");
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
       navigate("/dashboard");
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -69,33 +66,13 @@ export const AuthForm = () => {
     setSignUp(!signUp);
   };
 
-  // const resetPassword = async () => {
-  //   try {
-  //     sendPasswordResetEmail(auth, email);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
-    <form
-      onSubmit={(event) => handleSubmit(event)}
-    >
+    <form onSubmit={(event) => handleSubmit(event)}>
       <h1 className="text-center">{signUp ? "Sign Up" : "Sign In"}</h1>
       {signUp && (
         <div className="input-field">
-          {/* <label htmlFor="username">Username</label> */}
-          {/* <input
+          <StyledInput
             type="username"
-            name="username"
-            value={displayName}
-            onChange={(event) => setDisplayName(event.target.value)}
-            className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
-            id="username"
-            required
-          /> */}
-          <StyledInput 
-            type="username" 
             name="username"
             label="Username"
             placeholder="Username"
@@ -107,48 +84,34 @@ export const AuthForm = () => {
         </div>
       )}
       <div className="input-field">
-        {/* <label htmlFor="email">Email</label> */}
         <StyledInput
           type="email"
           name="email"
           label="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
           id="email"
           required
         />
       </div>
       <div className="input-field">
-        {/* <label htmlFor="password">Password</label> */}
         <StyledInput
           type="password"
           name="password"
           label="Password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="w-full p-3 border border-gray-400 rounded-lg outline-teal-500"
           id="password"
           required
         />
       </div>
-      <p className="text-red-400">{error && error}</p>
+      <p>{error && error}</p>
       <Button type="submit">
         {signUp ? "Register" : "Login"}
       </Button>
-      <div className="flex">
-        <div className="flex-start">
-          <Button onClick={(event) => toggleSignUp(event)}>
-            {signUp ? "Sign In" : "Sign Up"}
-          </Button>
-          {/* <button
-            className="transition duration-500 hover:underline"
-            onClick={() => resetPassword()}
-          >
-            Forgot Password
-          </button> */}
-        </div>
-      </div>
+      <Button onClick={(event) => toggleSignUp(event)}>
+        {signUp ? "Sign In" : "Sign Up"}
+      </Button>
     </form>
   );
 };

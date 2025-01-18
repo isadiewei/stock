@@ -12,8 +12,9 @@ import { addCatch, getCatch, setCatch } from './EditCatch.service';
 import { EditCatchProps } from './EditCatch.model';
 import { Fish } from '../../../models/Fish';
 import { LabelledInput } from '../../../components/Styled/LabelledInput.component';
+import { KeyboardReturn } from '@mui/icons-material';
 
-export const EditCatch = (props: EditCatchProps) => {
+export const EditCatch = ({ createNew }: EditCatchProps) => {
   const params = useParams();
   const [location, setLocation] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
@@ -33,7 +34,7 @@ export const EditCatch = (props: EditCatchProps) => {
 
 
   useEffect(() => {
-    if (!props.createNew) {
+    if (!createNew) {
       getCatch(params.id?.toString() || '').then(data => {
         setLocation(data?.location);
         setWeight(data?.weight);
@@ -51,7 +52,7 @@ export const EditCatch = (props: EditCatchProps) => {
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
     e.stopPropagation();
 
-    if (props.createNew) {
+    if (createNew) {
       addCatch({
         location: location,
         weight: Number(weight),
@@ -84,8 +85,8 @@ export const EditCatch = (props: EditCatchProps) => {
   return (
     <>
       <div className='header-container'>
-        <Button onClick={(e) => onReturnClick(e)}>Return</Button>
-        <h3>editing: {params.id}</h3>
+        <Button onClick={(e) => onReturnClick(e)}><KeyboardReturn /></Button>
+        {!createNew ? <h3>editing: {params.id}</h3> : <></>}
       </div>
       <div>
         <LabelledInput
