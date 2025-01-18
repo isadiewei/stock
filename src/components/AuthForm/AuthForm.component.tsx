@@ -1,18 +1,18 @@
+import { Button } from "@mui/material";
+import { FirebaseError } from "firebase/app";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { FormEvent, MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FireBaseApp from "../../firebase";
-import { FirebaseError } from "firebase/app";
 import { StyledInput } from "../Styled";
 import './AuthForm.css';
-import { Button } from "@mui/material";
-import { setUser } from "./AuthForm.service";
 import { AppUser } from "./AuthForm.model";
+import { setUser } from "./AuthForm.service";
 
 export const AuthForm = () => {
   const [email, setEmail] = useState("");

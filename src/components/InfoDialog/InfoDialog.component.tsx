@@ -1,9 +1,9 @@
 import { Dialog, DialogTitle } from "@mui/material";
 import { useEffect, useState } from "react";
-import { SimpleDialogProps } from "./InfoDialog.model";
 import { Fish } from '../../models/Fish';
-import { getData } from "./InfoDialog.service";
 import './InfoDialog.css';
+import { SimpleDialogProps } from "./InfoDialog.model";
+import { getData } from "./InfoDialog.service";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo.component";
 
 export const InfoDialog = (props: SimpleDialogProps) => {
