@@ -1,0 +1,1 @@
+export { DataFrame } from '../../../pages/Catch/CatchDashboard/DataFrame/DataFrame.component';

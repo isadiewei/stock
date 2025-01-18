@@ -4,10 +4,10 @@ import Button from '@mui/material/Button';
 import { DeleteOutlined } from '@mui/icons-material';
 import { DataFrameInput } from './DataFrame.model';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { isAdmin } from '../../../services/isAdmin';
+import { isAdmin } from '../../../../services/isAdmin';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { InfoDialog } from '../../InfoDialog/InfoDialog.component';
+import { InfoDialog } from '../../../../components/InfoDialog/InfoDialog.component';
 import { deleteCatch } from './DataFrame.service';
 
 export const DataFrame = ({ rows, rerender }: DataFrameInput) => {

@@ -1,1 +1,0 @@
-export { DataFrame } from './DataFrame.component';
