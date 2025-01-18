@@ -1,23 +1,16 @@
-import { BaseSyntheticEvent, MouseEvent, useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { DataFrameProps } from "./DataFrame.model";
 import { isAdmin } from "../../../../services/isAdmin";
 import { Button, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DeleteOutlined } from "@mui/icons-material";
 import { deleteCatch } from "./DataFrame.service";
-import { InfoDialog } from "../../../../components/InfoDialog";
 import { useNavigate } from "react-router-dom";
 
 export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
   const [admin, setAdmin] = useState(false);
   const paginationModel = { page: 0, pageSize: 5 };
   const navigate = useNavigate();
-  // const [selectedTrackingId, setSelectedTrackingId] = useState('');
-  // const [open, setOpen] = useState(false);
-
-  // const handleClose = (_selectedValue: string) => {
-  //   setOpen(false);
-  // };
 
   useEffect(() => {
     isAdmin().then(admin => setAdmin(admin));

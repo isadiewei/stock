@@ -1,7 +1,6 @@
-import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import FireBaseApp from "../../firebase";
 import { InfoDialogProfile } from "./InfoDialog.model";
-import { stringToFile } from "../../services/fileConverter";
 import { getImages } from "../../services/filesAccess";
 
 export const getData = async (selectedValue: string): Promise<InfoDialogProfile> => {

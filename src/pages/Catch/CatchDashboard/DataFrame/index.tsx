@@ -1,1 +1,1 @@
-export { DataFrame } from '../../../pages/Catch/CatchDashboard/DataFrame/DataFrame.component';
+export { DataFrame } from './DataFrame.component';
