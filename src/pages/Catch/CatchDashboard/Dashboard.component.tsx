@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { Navigation } from "../../../components";
 import { DataFrame } from "../../../components";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-import FireBaseApp from "../../../firebase";
 import { Catch } from "../../../models/Catch";
 import { populate } from "./Dashboard.service";
 
@@ -12,7 +10,6 @@ export const Dashboard = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const navigation = useNavigate();
-  const db = getFirestore(FireBaseApp);
   const [rows, setRows] = useState<Catch[]>([]);
   const [render, setRender] = useState();
 

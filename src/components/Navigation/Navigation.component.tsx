@@ -10,7 +10,6 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
   const user = auth.currentUser;
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(true);
-  const [isCatchDashboard, setIsCatchDashboard] = useState(true);
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
