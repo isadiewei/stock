@@ -10,18 +10,17 @@ export const FishDashboard = () => {
 
   useEffect(() => {
     populate()
-    .then(result => {
-      setRows(result);
-    })
-    .catch(error => {
-      console.debug(error);
-    });
+      .then(result => {
+        setRows(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, [render]);
 
   return (
     <>
       <Navigation pageName="fishes"></Navigation>
-      <p> Fish Dashboard </p>
       <DataFrame rows={rows} rerender={_ => setRender(!render)}></DataFrame>
     </>
   )
