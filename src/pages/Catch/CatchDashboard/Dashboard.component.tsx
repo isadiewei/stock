@@ -1,10 +1,10 @@
+import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
 import { Navigation } from "../../../components";
-import { DataFrame } from "../../../components";
 import { Catch } from "../../../models/Catch";
 import { populate } from "./Dashboard.service";
+import { DataFrame } from "./DataFrame";
 
 export const Dashboard = () => {
   const auth = getAuth();
@@ -25,7 +25,7 @@ export const Dashboard = () => {
       setRows(result);
     })
     .catch(error => {
-      console.debug(error);
+      console.error(error);
     });
   }, [render]);
 
