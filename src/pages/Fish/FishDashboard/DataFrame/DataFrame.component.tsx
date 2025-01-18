@@ -1,11 +1,11 @@
-import { BaseSyntheticEvent, useEffect, useState } from "react";
-import { DataFrameProps } from "./DataFrame.model";
-import { isAdmin } from "../../../../services/isAdmin";
+import { DeleteOutlined } from "@mui/icons-material";
 import { Button, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DeleteOutlined } from "@mui/icons-material";
-import { deleteCatch } from "./DataFrame.service";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { isAdmin } from "../../../../services/isAdmin";
+import { DataFrameProps } from "./DataFrame.model";
+import { deleteCatch } from "./DataFrame.service";
 
 export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
   const [admin, setAdmin] = useState(false);
