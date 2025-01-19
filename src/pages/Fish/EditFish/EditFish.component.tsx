@@ -1,8 +1,8 @@
 import { KeyboardReturn } from '@mui/icons-material';
-import { Button, CircularProgress, LinearProgress } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Navigation, UploadButton } from '../../../components';
+import { UploadButton } from '../../../components';
 import { LabelledInput } from '../../../components/Styled';
 import { Fish } from '../../../models/Fish';
 import './EditFish.css';
@@ -39,7 +39,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         setLoading(false);
       });
     } else {
-      setFish({ name, type, id: params.id } as Fish).then(result => {
+      setFish({ name, type, id: params.id } as Fish).then(_result => {
         setLoading(false);
       }).catch(error => {
         console.error(error);
