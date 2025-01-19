@@ -33,10 +33,13 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
       {isViewable ?
         <div>
           <div>
-            <ProfileInfo label="name" content={fish?.name} ></ProfileInfo>
+            <ProfileInfo label="Name" content={fish?.name} ></ProfileInfo>
           </div>
           <div>
-            <ProfileInfo label="type" content={fish?.type}></ProfileInfo>
+            <ProfileInfo label="Type" content={fish?.type}></ProfileInfo>
+          </div>
+          <div>
+            <ProfileInfo label="Info" content={fish?.characteristics}></ProfileInfo>
           </div>
           <div className="profile-container">
             {files.map(file =>

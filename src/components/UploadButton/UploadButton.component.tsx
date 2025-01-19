@@ -6,10 +6,10 @@ export const UploadButton = (props: UploadButtonProps) => {
   return (
     <>
       <Button
-        variant="contained"
-        // color="primary"
+        variant="outlined"
         component="label"
         startIcon={<FileUpload />}
+        sx={{ width: '100%' }}
       >
         {props.buttonLabel}
         <input

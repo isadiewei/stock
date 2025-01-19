@@ -13,6 +13,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
   const params = useParams();
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<string>('');
+  const [characteristics, setCharacteristics] = useState<string>('');
   const [files, setFiles] = useState<Array<File>>();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -33,9 +34,10 @@ export const EditFish = ({ createNew }: EditFishProps) => {
     e.stopPropagation();
 
     if (createNew) {
-      addFish({ name, type }, files).then((_id) => {
+      addFish({ name, type, characteristics }, files).then((_id) => {
         setName('');
         setType('');
+        setCharacteristics('');
         setLoading(false);
       });
     } else {
@@ -59,12 +61,15 @@ export const EditFish = ({ createNew }: EditFishProps) => {
       <div>
         <LabelledInput value={type} label='Type' onChange={e => setType(e.target.value)}></LabelledInput>
       </div>
+      <div>
+        <LabelledInput value={characteristics} label='Characteristics' onChange={e => setCharacteristics(e.target.value)}></LabelledInput>
+      </div>
       <div className='upload-container'>
         <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
       </div>
   <div className="submit-container">
     {loading && <CircularProgress size={20} />}
-    <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
+    <Button variant='contained' onClick={e => onSubmitHandler(e)}>Submit</Button>
   </div>
     </>
   )
