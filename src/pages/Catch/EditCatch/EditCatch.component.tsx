@@ -1,5 +1,5 @@
 import { KeyboardReturn } from '@mui/icons-material';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -22,6 +22,7 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
   const [trackingId, setTrackingId] = useState<string>('');
   const [trackingIdList, setTrackingIdList] = useState<Fish[]>([]);
   const [datetime, setDatetime] = useState<Date>(new Date());
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
   }
 
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
+    setLoading(true);
     e.stopPropagation();
 
     if (createNew) {
@@ -64,6 +66,7 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
         setWeight('');
         setTrackingId('');
         setLure('');
+        setLoading(false);
       });
     } else {
       setCatch(params.id?.toString() || '', {
@@ -75,7 +78,10 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
         date: datetime
       } as Catch)
         .then(() => {
-          console.debug('data updated');
+          setLoading(false);
+        })
+        .catch(error => {
+          console.debug(error);
         })
     }
   }
@@ -133,6 +139,7 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
         </FormControl>
       </div>
       <div className="submit-container">
+        {loading && <CircularProgress size={20}></CircularProgress>}
         <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
       </div>
     </>
