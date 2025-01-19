@@ -31,7 +31,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <Navigation pageName="Dashboard" />
+      <Navigation pageName="Catches" />
       <div className="dataframe-container">
         <DataFrame rows={rows} rerender={_ => setRender(!render)}/>
       </div>

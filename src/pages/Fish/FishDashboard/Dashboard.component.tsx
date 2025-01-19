@@ -20,7 +20,7 @@ export const FishDashboard = () => {
 
   return (
     <>
-      <Navigation pageName="fishes"></Navigation>
+      <Navigation pageName="Fishes"></Navigation>
       <DataFrame rows={rows} rerender={_ => setRender(!render)}></DataFrame>
     </>
   )

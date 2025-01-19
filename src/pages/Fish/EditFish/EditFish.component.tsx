@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
-import { StyledInput } from '../../../components/Styled';
+import { LabelledInput, StyledInput } from '../../../components/Styled';
 import './EditFish.css';
 import { UploadButton } from '../../../components';
 import { addFish, getFish, setFish } from './EditFish.service';
@@ -50,18 +50,14 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         <Button onClick={_ => navigate('/fishes')}><KeyboardReturn /></Button>
       </div>
       <div>
-        <p>Name</p>
-        <StyledInput value={name} onChange={e => setName(e.target.value)}></StyledInput>
+        <LabelledInput value={name} label='Name' onChange={e => setName(e.target.value)}></LabelledInput>
       </div>
       <div>
-        <p>Type</p>
-        <StyledInput value={type} onChange={e => setType(e.target.value)}></StyledInput>
+        <LabelledInput value={type} label='Type' onChange={e => setType(e.target.value)}></LabelledInput>
       </div>
       {createNew ?
         <div>
-          <p>Profile</p>
-          <p>small images please</p>
-          <UploadButton handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
+          <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
         </div>
         : <></>}
       <div className="submit-container">
