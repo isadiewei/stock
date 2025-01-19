@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from "@mui/material";
+import { Dialog, DialogTitle, LinearProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Fish } from '../../models/Fish';
 import './InfoDialog.css';
@@ -10,6 +10,7 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
   const [fish, setFish] = useState({} as Fish);
   const [isViewable, setIsViewable] = useState(false);
   const [files, setFiles] = useState<Array<File>>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -17,12 +18,14 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
 
   useEffect(() => {
     setIsViewable(false);
+    setIsLoading(true);
 
     if (selectedValue?.length > 0) {
       getData(selectedValue).then(result => {
         setFish(result as Fish);
         setIsViewable(true);
         setFiles(result.images);
+        setIsLoading(false);
       });
     }
   }, [selectedValue])
@@ -30,6 +33,7 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>{selectedValue}</DialogTitle>
+      {isLoading && <LinearProgress></LinearProgress>}
       {isViewable ?
         <div>
           <div>

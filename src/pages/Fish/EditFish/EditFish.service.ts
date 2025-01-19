@@ -10,7 +10,7 @@ export const addFish = async (fish: Fish, fileList?: Array<File>): Promise<strin
 
   const result = await addDoc(ref, fish);
 
-  if (fileList) {
+  if (fileList?.length !== undefined && fileList?.length > 0) {
     handleFileUpload(result.id, fileList);
   }
 
@@ -29,7 +29,8 @@ export const getFish = async (id: string): Promise<Fish | null> => {
       return {
         id: result.id,
         name: data.name,
-        type: data.type
+        type: data.type,
+        characteristics: data.characteristics
       } as Fish
     }
   }

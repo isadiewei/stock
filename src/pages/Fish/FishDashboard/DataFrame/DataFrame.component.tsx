@@ -31,6 +31,10 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
       headerName: 'Type'
     },
     {
+      field: 'characteristics',
+      headerName: 'Info'
+    },
+    {
       field: 'action',
       headerName: 'Action',
       headerAlign: 'center',

@@ -24,6 +24,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         if (data) {
           setName(data?.name);
           setType(data?.type);
+          setCharacteristics(data?.characteristics);
         }
       });
     }
@@ -41,7 +42,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         setLoading(false);
       });
     } else {
-      setFish({ name, type, id: params.id } as Fish, files)
+      setFish({ name, type, characteristics, id: params.id } as Fish, files)
         .then(() => {setLoading(false)})
         .catch(error => {
           console.error(error);
