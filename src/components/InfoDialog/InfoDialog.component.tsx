@@ -18,7 +18,7 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
   useEffect(() => {
     setIsViewable(false);
 
-    if (selectedValue.length > 0) {
+    if (selectedValue?.length > 0) {
       getData(selectedValue).then(result => {
         setFish(result as Fish);
         setIsViewable(true);

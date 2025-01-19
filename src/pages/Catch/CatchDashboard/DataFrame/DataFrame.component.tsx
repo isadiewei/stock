@@ -16,10 +16,6 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
   const [admin, setAdmin] = useState(false);
   const [selectedTrackingId, setSelectedTrackingId] = useState('');
 
-  const handleClose = (_selectedValue: string) => {
-    setOpen(false);
-  };
-
   useEffect(() => {
     isAdmin().then(admin => setAdmin(admin));
   })
@@ -51,6 +47,7 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       field: 'action',
       headerName: 'Action',
       headerAlign: 'center',
+      align: 'center',
       sortable: false,
       filterable: false,
       width: 200,
@@ -87,7 +84,7 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
             <InfoDialog
               selectedValue={selectedTrackingId}
               open={open}
-              onClose={handleClose}
+              onClose={_ => setOpen(false)}
             />
           </div>
         )

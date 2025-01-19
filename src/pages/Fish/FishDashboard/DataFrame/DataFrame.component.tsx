@@ -1,4 +1,4 @@
-import { DeleteOutlined, Edit } from "@mui/icons-material";
+import { DeleteOutlined, Edit, Visibility } from "@mui/icons-material";
 import { Button, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
@@ -6,9 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { isAdmin } from "../../../../services/isAdmin";
 import { DataFrameProps } from "./DataFrame.model";
 import { deleteFish } from "./DataFrame.service";
+import { InfoDialog } from "../../../../components";
 
 export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
   const [admin, setAdmin] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedTrackingId, setSelectedTrackingId] = useState('');
+
   const paginationModel = { page: 0, pageSize: 5 };
   const navigate = useNavigate();
 
@@ -30,9 +34,10 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
       field: 'action',
       headerName: 'Action',
       headerAlign: 'center',
+      align: 'center',
       sortable: false,
       filterable: false,
-      width: 150,
+      width: 250,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
@@ -50,10 +55,24 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
           navigate(`/editfish/${row.id}`)
         }
 
+        const onViewClick = (e: BaseSyntheticEvent) => {
+          e.stopPropagation();
+          const row = params.row;
+          console.debug(row);
+          setSelectedTrackingId(row.id);
+          setOpen(true);
+        };
+
         return (
           <div>
+            <Button onClick={e => onViewClick(e)}><Visibility /></Button>
             {admin ? <Button onClick={e => onEditClick(e)}><Edit /></Button> : <></>}
             {admin ? <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button> : <></>}
+            <InfoDialog
+              selectedValue={selectedTrackingId}
+              open={open}
+              onClose={_ => setOpen(false)}
+            />
           </div>
         )
       }
