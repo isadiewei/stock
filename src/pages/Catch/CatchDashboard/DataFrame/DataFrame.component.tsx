@@ -2,14 +2,13 @@ import { DeleteOutlined, Edit, Visibility } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import dayjs from 'dayjs';
+import { Timestamp } from 'firebase/firestore';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { InfoDialog } from '../../../../components';
 import { isAdmin } from '../../../../services/isAdmin';
 import { DataFrameInput } from './DataFrame.model';
 import { deleteCatch } from './DataFrame.service';
-import { Timestamp } from 'firebase/firestore';
 
 export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
   const navigate = useNavigate();
