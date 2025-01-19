@@ -6,13 +6,13 @@ export const getCatch = async (id: string) => {
   if (id.length > 0) {
     const db = getFirestore(FireBaseApp);
     const docRef = doc(db, 'catches', id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log('Document data:', docSnap.data());
-      const snapData = docSnap.data();
+    const snap = await getDoc(docRef);
+
+    if (snap.exists()) {
+      const snapData = snap.data();
       return snapData;
     } else {
-      console.debug('No such document!');
+      console.warn('No document for id', id);
     }
   }
 };

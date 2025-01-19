@@ -46,7 +46,6 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
   }, []);
 
   const dateSetter = (e: Dayjs) => {
-    console.debug(e);
     setDatetime(e.toDate());
   }
 
@@ -81,7 +80,7 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
           setLoading(false);
         })
         .catch(error => {
-          console.debug(error);
+          console.error(error);
         })
     }
   }

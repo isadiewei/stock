@@ -12,8 +12,7 @@ export const handleFileUpload = async (trackingId: string, fileList: Array<File>
         name: file.name,
         trackingId,
         content
-      }).then(result => {
-        console.debug(result);
+      }).then(_result => {
       }).catch(error => {
         console.error(error);
       })
@@ -31,7 +30,6 @@ export const getImages = async (selectedValue: string): Promise<Blob[]> => {
 
   const results = snap.docs.map(doc => {
     const result = doc.data();
-    console.debug(result)
     const file = stringToFile(result.content);
     return file;
   });

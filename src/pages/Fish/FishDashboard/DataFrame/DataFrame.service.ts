@@ -4,7 +4,6 @@ import { deleteDocs } from "../../../../services/deleteDocs/deleteDocs.service";
 
 export const deleteFish = async (fishId: string) => {
   if (fishId?.length > 0) {
-    console.debug(fishId);
     const db = getFirestore(FireBaseApp);
     await deleteDoc(doc(db, "fish", fishId));
 

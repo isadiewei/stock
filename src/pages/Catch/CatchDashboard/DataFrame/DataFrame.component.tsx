@@ -72,7 +72,6 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
         const onEditClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          console.debug(row);
           navigate(`/editcatch/${row.id}`)
         }
 

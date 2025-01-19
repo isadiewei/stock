@@ -58,7 +58,6 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
         const onViewClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          console.debug(row);
           setSelectedTrackingId(row.id);
           setOpen(true);
         };
