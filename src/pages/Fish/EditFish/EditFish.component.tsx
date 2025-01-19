@@ -36,8 +36,9 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         setType('');
       });
     } else {
-      setFish({ name, type, id: params.id } as Fish).then(result => {
-        console.debug('edit fish', result);
+      console.warn('calling onSubmitHandler');
+      setFish({ name, type, id: params.id } as Fish, files).then(_result => {
+
       }).catch(error => {
         console.error(error);
       })
@@ -55,11 +56,9 @@ export const EditFish = ({ createNew }: EditFishProps) => {
       <div>
         <LabelledInput value={type} label='Type' onChange={e => setType(e.target.value)}></LabelledInput>
       </div>
-      {createNew ?
-        <div>
-          <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
-        </div>
-        : <></>}
+      <div className='upload-container'>
+        <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
+      </div>
       <div className="submit-container">
         <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
       </div>

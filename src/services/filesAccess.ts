@@ -2,13 +2,12 @@ import { addDoc, collection, getDocs, getFirestore, query, where } from "firebas
 import FireBaseApp from "../firebase";
 import { fileToString, stringToFile } from "./fileConverter";
 
-export const handleFileUpload = async (trackingId: string, fileList: Array<File>) => {
+export const handleFileUpload = async (trackingId: string, fileList: Array<File>): Promise<void> => {
   const db = getFirestore(FireBaseApp);
   const ref = collection(db, 'images');
 
   fileList.forEach(file => {
     fileToString(file).then(content => {
-      console.debug(content);
       addDoc(ref, {
         name: file.name,
         trackingId,
