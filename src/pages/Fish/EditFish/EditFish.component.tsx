@@ -1,8 +1,8 @@
 import { KeyboardReturn } from '@mui/icons-material';
-import { Button, LinearProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Navigation, UploadButton } from '../../../components';
+import { UploadButton } from '../../../components';
 import { LabelledInput } from '../../../components/Styled';
 import { Fish } from '../../../models/Fish';
 import './EditFish.css';
