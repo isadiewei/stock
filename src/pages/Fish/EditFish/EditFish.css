@@ -5,3 +5,9 @@
 .header-container {
   display: flex;
 }
+
+.upload-container {
+  padding-top: 10px;
+  display: flex;
+  justify-content: end;
+}
