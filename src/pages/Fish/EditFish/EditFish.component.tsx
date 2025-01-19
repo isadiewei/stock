@@ -1,13 +1,13 @@
-import { Button } from '@mui/material'
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
-import { LabelledInput, StyledInput } from '../../../components/Styled';
-import './EditFish.css';
-import { UploadButton } from '../../../components';
-import { addFish, getFish, setFish } from './EditFish.service';
-import { EditFishProps } from './EditFish.model';
-import { Fish } from '../../../models/Fish';
 import { KeyboardReturn } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { UploadButton } from '../../../components';
+import { LabelledInput } from '../../../components/Styled';
+import { Fish } from '../../../models/Fish';
+import './EditFish.css';
+import { EditFishProps } from './EditFish.model';
+import { addFish, getFish, setFish } from './EditFish.service';
 
 export const EditFish = ({ createNew }: EditFishProps) => {
   const params = useParams();
