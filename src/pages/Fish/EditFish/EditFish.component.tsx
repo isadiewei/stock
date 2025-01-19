@@ -1,8 +1,8 @@
 import { KeyboardReturn } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Button, CircularProgress, LinearProgress } from '@mui/material';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { UploadButton } from '../../../components';
+import { Navigation, UploadButton } from '../../../components';
 import { LabelledInput } from '../../../components/Styled';
 import { Fish } from '../../../models/Fish';
 import './EditFish.css';
@@ -14,6 +14,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [files, setFiles] = useState<Array<File>>();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,18 +29,21 @@ export const EditFish = ({ createNew }: EditFishProps) => {
   }, []);
 
   const onSubmitHandler = (e: BaseSyntheticEvent) => {
+    setLoading(true);
     e.stopPropagation();
 
     if (createNew) {
       addFish({ name, type }, files).then((_id) => {
         setName('');
         setType('');
+        setLoading(false);
       });
     } else {
       setFish({ name, type, id: params.id } as Fish).then(result => {
-        console.debug('edit fish', result);
+        setLoading(false);
       }).catch(error => {
         console.error(error);
+        setLoading(false);
       })
     }
   }
@@ -61,6 +65,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         </div>
       }
       <div className="submit-container">
+        {loading && <CircularProgress size={20} />}
         <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
       </div>
     </>
