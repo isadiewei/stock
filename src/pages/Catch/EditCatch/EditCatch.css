@@ -9,3 +9,14 @@
 .selector {
   padding-top: 36px;
 }
+
+.datepicker-container {
+  display: flex;
+}
+
+.datepicker-label {
+  display: flex;
+  min-width: 100px;
+  padding: 0 15px;
+  justify-content: end;
+}

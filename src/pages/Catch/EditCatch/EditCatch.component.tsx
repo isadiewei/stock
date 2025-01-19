@@ -6,7 +6,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { LabelledInput } from '../../../components/Styled/LabelledInput.component';
+import { LabelledInput } from '../../../components/Styled/LabelledInput/LabelledInput.component';
 import { Catch } from '../../../models/Catch';
 import { Fish } from '../../../models/Fish';
 import { getFishIds } from '../../Fish/Fish.service';
@@ -112,6 +112,14 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
           onChange={e => setLure(e.target.value)}
         ></LabelledInput>
       </div>
+      <div className="datepicker-container">
+        <div className="datepicker-label">
+          <p>Catch Date</p>
+        </div>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker value={dayjs(datetime)} onChange={(value: any) => dateSetter(value)}></DateTimePicker>
+        </LocalizationProvider>
+      </div>
       <div className="selector">
         <FormControl fullWidth>
           <InputLabel>Tracking Id</InputLabel>
@@ -123,12 +131,6 @@ export const EditCatch = ({ createNew }: EditCatchProps) => {
             {trackingIdList.map(fish => <MenuItem key={fish.id} value={fish.id}>{`${fish.name} ${fish.id}`}</MenuItem>)}
           </Select>
         </FormControl>
-      </div>
-      <div>
-        <p>Catch Date</p>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker value={dayjs(datetime)} onChange={(value: any) => dateSetter(value)}></DateTimePicker>
-        </LocalizationProvider>
       </div>
       <div className="submit-container">
         <Button onClick={e => onSubmitHandler(e)}>Submit</Button>

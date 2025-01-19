@@ -9,6 +9,7 @@ import { InfoDialog } from '../../../../components';
 import { isAdmin } from '../../../../services/isAdmin';
 import { DataFrameInput } from './DataFrame.model';
 import { deleteCatch } from './DataFrame.service';
+import { Timestamp } from 'firebase/firestore';
 
 export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
   const navigate = useNavigate();
@@ -34,8 +35,10 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       field: 'date',
       headerName: 'Date',
       width: 200,
-      valueFormatter: (params: any) =>
-        dayjs(params?.value).format("DD/MM/YYYY hh:mm A"),
+      valueFormatter: (params: Timestamp) => {
+        const timestamp = params.toDate();
+        return `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
+      }
     },
     { field: 'location', headerName: 'Location', width: 100 },
     { field: 'lure', headerName: 'Lure', width: 100 },

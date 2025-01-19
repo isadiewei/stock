@@ -40,7 +40,7 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
           </div>
           <div className="profile-container">
             {files.map(file =>
-              <img src={URL.createObjectURL(file)} />
+              <img key={file.name} src={URL.createObjectURL(file)} />
             )}
           </div>
         </div>
