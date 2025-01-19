@@ -39,12 +39,12 @@ export const EditFish = ({ createNew }: EditFishProps) => {
         setLoading(false);
       });
     } else {
-      setFish({ name, type, id: params.id } as Fish).then(_result => {
-        setLoading(false);
-      }).catch(error => {
-        console.error(error);
-        setLoading(false);
-      })
+      setFish({ name, type, id: params.id } as Fish, files)
+        .then(() => {setLoading(false)})
+        .catch(error => {
+          console.error(error);
+          setLoading(false);
+        })
     }
   }
 
@@ -59,15 +59,13 @@ export const EditFish = ({ createNew }: EditFishProps) => {
       <div>
         <LabelledInput value={type} label='Type' onChange={e => setType(e.target.value)}></LabelledInput>
       </div>
-      {createNew &&
-        <div className='upload-container'>
-          <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
-        </div>
-      }
-      <div className="submit-container">
-        {loading && <CircularProgress size={20} />}
-        <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
+      <div className='upload-container'>
+        <UploadButton buttonLabel='Upload Fish Image' handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
       </div>
+  <div className="submit-container">
+    {loading && <CircularProgress size={20} />}
+    <Button onClick={e => onSubmitHandler(e)}>Submit</Button>
+  </div>
     </>
   )
 }

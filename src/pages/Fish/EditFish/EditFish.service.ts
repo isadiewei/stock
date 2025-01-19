@@ -1,6 +1,7 @@
 import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { Fish } from "../../../models/Fish";
 import FireBaseApp from "../../../firebase";
+import { Fish } from "../../../models/Fish";
+import { deleteDocs } from "../../../services/deleteDocs/deleteDocs.service";
 import { getImages, handleFileUpload } from "../../../services/filesAccess";
 
 export const addFish = async (fish: Fish, fileList?: Array<File>): Promise<string> => {
@@ -37,11 +38,24 @@ export const getFish = async (id: string): Promise<Fish | null> => {
 }
 
 
-export const setFish = async (fish: Fish): Promise<boolean> => {
+export const setFish = async (fish: Fish, files?: Array<File>): Promise<boolean> => {
   if (!fish.id) return false;
 
   const db = getFirestore(FireBaseApp);
   const ref = doc(db, "fish", fish.id);
+
+  await deleteDocs({
+    collectionName: 'images',
+    fieldName: 'trackingId',
+    searchValue: fish.id
+  });
+
+  if (files) {
+    handleFileUpload(fish.id, files)
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   await setDoc(ref, fish);
 
