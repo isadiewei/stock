@@ -29,7 +29,7 @@ export const InfoDialog = ({ onClose, selectedValue, open }: SimpleDialogProps) 
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Pulling TrackingId {selectedValue}</DialogTitle>
+      <DialogTitle>{selectedValue}</DialogTitle>
       {isViewable ?
         <div>
           <div>

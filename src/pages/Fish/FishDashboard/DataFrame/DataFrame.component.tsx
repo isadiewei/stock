@@ -1,11 +1,11 @@
-import { DeleteOutlined } from "@mui/icons-material";
+import { DeleteOutlined, Edit } from "@mui/icons-material";
 import { Button, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isAdmin } from "../../../../services/isAdmin";
 import { DataFrameProps } from "./DataFrame.model";
-import { deleteCatch } from "./DataFrame.service";
+import { deleteFish } from "./DataFrame.service";
 
 export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
   const [admin, setAdmin] = useState(false);
@@ -32,13 +32,12 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
       headerAlign: 'center',
       sortable: false,
       filterable: false,
-      width: 180,
+      width: 150,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          deleteCatch(row.id).then(result => {
-            console.debug(result);
+          deleteFish(row.id).then(_result => {
             rerender(true);
           }).catch(error => {
             console.error(error);
@@ -48,28 +47,13 @@ export const DataFrame = ({ rows, rerender }: DataFrameProps) => {
         const onEditClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          console.debug(row);
           navigate(`/editfish/${row.id}`)
         }
 
-        // const onViewClick = (e: BaseSyntheticEvent) => {
-        //   e.stopPropagation();
-        //   const row = params.row;
-        //   setSelectedTrackingId(row.trackingId);
-        //   setOpen(true);
-        // };
-
-
         return (
           <div>
-            {/* <Button onClick={e => onViewClick(e)}>View</Button> */}
-            {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
+            {admin ? <Button onClick={e => onEditClick(e)}><Edit /></Button> : <></>}
             {admin ? <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button> : <></>}
-            {/* <InfoDialog
-              selectedValue={selectedTrackingId}
-              open={open}
-              onClose={handleClose}
-            /> */}
           </div>
         )
       }

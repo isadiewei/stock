@@ -60,7 +60,7 @@ export const EditFish = ({ createNew }: EditFishProps) => {
       {createNew ?
         <div>
           <p>Profile</p>
-          <p>png images less than 1mb please</p>
+          <p>small images please</p>
           <UploadButton handleUpload={files => setFiles(Array.from(files || []))}></UploadButton>
         </div>
         : <></>}

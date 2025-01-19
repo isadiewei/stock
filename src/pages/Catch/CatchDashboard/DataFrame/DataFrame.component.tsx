@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@mui/icons-material';
+import { DeleteOutlined, Edit, Visibility } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -24,6 +24,10 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
     isAdmin().then(admin => setAdmin(admin));
   })
 
+  useEffect(() => {
+    rerender(true);
+  }, [])
+
   const columns: Array<GridColDef> = [
     { field: 'id', headerName: 'ID', width: 130 },
     {
@@ -33,7 +37,8 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       valueFormatter: (params: any) =>
         dayjs(params?.value).format("DD/MM/YYYY hh:mm A"),
     },
-    { field: 'location', headerName: 'Location', width: 130 },
+    { field: 'location', headerName: 'Location', width: 100 },
+    { field: 'lure', headerName: 'Lure', width: 100 },
     { field: 'weight', headerName: 'Weight', width: 100 },
     {
       field: 'trackingId',
@@ -46,13 +51,12 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
       headerAlign: 'center',
       sortable: false,
       filterable: false,
-      width: 250,
+      width: 200,
       renderCell: (params: any) => {
         const onDeleteClick = (e: BaseSyntheticEvent) => {
           e.stopPropagation();
           const row = params.row;
-          deleteCatch(row.id).then(result => {
-            console.debug(result);
+          deleteCatch(row.id).then(_result => {
             rerender(true);
           }).catch(error => {
             console.error(error);
@@ -75,8 +79,8 @@ export const DataFrame = ({ rows, rerender }: DataFrameInput) => {
 
         return (
           <div>
-            <Button onClick={e => onViewClick(e)}>View</Button>
-            {admin ? <Button onClick={e => onEditClick(e)}>Edit</Button> : <></>}
+            <Button onClick={e => onViewClick(e)}><Visibility /></Button>
+            {admin ? <Button onClick={e => onEditClick(e)}><Edit /></Button> : <></>}
             {admin ? <Button onClick={e => onDeleteClick(e)}><DeleteOutlined /></Button> : <></>}
             <InfoDialog
               selectedValue={selectedTrackingId}
