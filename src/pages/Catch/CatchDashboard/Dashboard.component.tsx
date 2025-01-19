@@ -12,6 +12,7 @@ export const Dashboard = () => {
   const navigation = useNavigate();
   const [rows, setRows] = useState<Catch[]>([]);
   const [render, setRender] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (user == null) {
@@ -20,18 +21,22 @@ export const Dashboard = () => {
   }, [user, navigation]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     populate()
     .then(result => {
       setRows(result);
+      setIsLoading(false);
     })
     .catch(error => {
       console.error(error);
+      setIsLoading(false);
     });
   }, [render]);
 
   return (
     <>
-      <Navigation pageName="Catches" />
+      <Navigation pageName="Catches" isLoading={isLoading} />
       <div className="dataframe-container">
         <DataFrame rows={rows} rerender={_ => setRender(!render)}/>
       </div>

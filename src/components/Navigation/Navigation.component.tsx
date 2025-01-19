@@ -1,11 +1,12 @@
-import { Button, ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup, LinearProgress } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isAdmin } from "../../services/isAdmin";
 import './Navigation.css';
+import { NavigationProps } from "./Navigation.model";
 
-export const Navigation = ({ pageName }: { pageName: string }) => {
+export const Navigation = ({ pageName, isLoading }: NavigationProps) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const navigate = useNavigate();
@@ -13,13 +14,8 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
   const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
-    checkAdmin();
+    isAdmin().then(admin => setAdmin(admin));
   }, [])
-
-  const checkAdmin = async () => {
-    const admin = await isAdmin();
-    setAdmin(admin);
-  }
 
   const clickHandler = () => {
     setSignedIn(!signedIn);
@@ -65,6 +61,7 @@ export const Navigation = ({ pageName }: { pageName: string }) => {
           </div>
         </div>
       </div>
+      {isLoading && <LinearProgress></LinearProgress>}
     </>
   );
 };
