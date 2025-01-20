@@ -17,7 +17,7 @@ This app uses Firebase, React, MaterialUI and is written in TypeScript
 ### Authentication
 
 The app uses Firebase for authentication and user authorization.
-Registration of new 'user' accounts is allowed while 'admin' accounts need special authorization.
+Registration of new 'user' accounts is openly allowed while 'admin' accounts need special authorization.
 
 Login to the application uses `signInWithEmailAndPassword(...)` from the Firebase authentication scheme.
 
@@ -57,7 +57,7 @@ Routing is handled by `react-router-dom` allowing us to create a react router wi
 
 Elements are passed to the router creation in `router.tsx` and have the following format with guards for admin routes.
 
-`element: <RedirectRouteGuard element={<EditCatch createNew={false} />}></RedirectRouteGuard>`
+`element: <RedirectRouteGuard element={<EditCatch ... />} />`
 
 The route guards allow for checking if a user `isAdmin()` prior to rendering the React element representing the page.
 
@@ -70,14 +70,20 @@ The route guards allow for checking if a user `isAdmin()` prior to rendering the
 
 ### Database Connection
 
-In order to properly test the application database connections are needed,
-the only strange collection needed is `admin` which contains documents of `{emails}` for users which are admins in the application
+In order to properly test the application database connections are needed these are stored outside of source in `.env` and loaded by Vite
+the only off nominal collection needed is `admin` which contains documents of `{emails}` for users which are admins in the application
 
 ## Application Use
 
 ### Admin Functionality 
 
-Admins are allowed to perform Create, Update, Delete functionality on both Fish and Catches
+Admins are allowed to (additional to Read) perform Create, Update, Delete functionality on both Fish and Catches
+
+This is ensured at the app, route, and database lebel, the later of which is guarded with Firebase security rules such as
+
+`allow write: if request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.token.email))`
+
+The navigation bar will reflect the capabilities of the current user roles.
 
 ![editcatch](./docs/editcatch.png)
 
@@ -85,6 +91,6 @@ Admins are allowed to perform Create, Update, Delete functionality on both Fish 
 
 ### View Functionality
 
-Both Admin and 'User' type users are allowed to view information about each catch and each fish
+Both Admin and 'User' type users are allowed to view information about each catch and fish via the dataframes and dialogs
 
-![infodialog](./docs/infodialog.png)
+![infodialog](./docs/infodialog.png)o
