@@ -45,13 +45,14 @@ export const setFish = async (fish: Fish, files?: Array<File>): Promise<boolean>
   const db = getFirestore(FireBaseApp);
   const ref = doc(db, "fish", fish.id);
 
-  await deleteDocs({
-    collectionName: 'images',
-    fieldName: 'trackingId',
-    searchValue: fish.id
-  });
 
-  if (files) {
+  if (files && files.length > 0) {
+    await deleteDocs({
+      collectionName: 'images',
+      fieldName: 'trackingId',
+      searchValue: fish.id
+    });
+
     handleFileUpload(fish.id, files)
       .catch(error => {
         console.error(error);

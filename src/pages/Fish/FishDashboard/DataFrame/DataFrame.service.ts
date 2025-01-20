@@ -7,13 +7,13 @@ export const deleteFish = async (fishId: string) => {
     const db = getFirestore(FireBaseApp);
     await deleteDoc(doc(db, "fish", fishId));
 
-    deleteDocs({
+    await deleteDocs({
       collectionName: 'images',
       fieldName: 'trackingId',
       searchValue: fishId
     });
 
-    deleteDocs({
+    await deleteDocs({
       collectionName: 'catches',
       fieldName: 'trackingId',
       searchValue: fishId
